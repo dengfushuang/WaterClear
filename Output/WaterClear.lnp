@@ -1,0 +1,28 @@
+--cpu Cortex-M0
+"..\output\hr8p506_iap_table.o"
+"..\output\lib_adc.o"
+"..\output\lib_euart.o"
+"..\output\lib_flashiap.o"
+"..\output\lib_gpio.o"
+"..\output\lib_iic.o"
+"..\output\lib_lcd.o"
+"..\output\lib_led.o"
+"..\output\lib_printf.o"
+"..\output\lib_rtc.o"
+"..\output\lib_scs.o"
+"..\output\lib_scu.o"
+"..\output\lib_spi.o"
+"..\output\lib_timer.o"
+"..\output\lib_uart.o"
+"..\output\lib_wdt.o"
+"..\output\main.o"
+"..\output\my_systick.o"
+"..\output\startup_hr8p506.o"
+"..\output\tds.o"
+"..\output\uart.o"
+"..\output\sim800c.o"
+"..\output\system_hr8p506_1.o"
+--strict --scatter "..\Output\WaterClear.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\WaterClear.map" -o ..\Output\WaterClear.axf
