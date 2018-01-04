@@ -17,6 +17,7 @@
 #include "lib_timer.h"
 #include "lib_scs.h"
 #include "lib_wdt.h"
+#include "lib_flashiap.h"
 
 /*******************************************************************
                        自定义头文件
@@ -25,13 +26,18 @@
 #include "tds.h"
 #include "my_systick.h"
 #include "sim800c.h"
+#define START_ADDR 0x00008BFF
+#define PAGE_ADDR (START_ADDR/1024)
+
+#define EEPROM_BASE_ADDR EPROM.IMEI[0]
+
 #define UART0_BUF_LEN 50
 
 extern uint8_t RCV_DATA_BUF[];
 
 typedef struct{
-	uint8_t VStatu;
     uint8_t IMEI[16];
+	uint32_t VStatu;
 	uint32_t ServerFlow;
 	uint32_t RunFlow;
 	uint32_t ServerTime;

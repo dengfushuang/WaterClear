@@ -9,7 +9,7 @@
  本软件仅供学习和演示使用，对用户直接引用代码所带来的风险或后果不承担任何法律责任。
  **********************************************************/
 #include "lib_flashiap.h"
-
+#include "user_config.h"
 /*************************************
   函数名：IAP_Unlock
   描  述：解锁IAP
@@ -200,3 +200,14 @@ ErrorStatus IAP_Read(uint32_t *Ram_Addr, uint32_t Flash_Addr, uint8_t Len)
 
 	return SUCCESS;
 }
+void Save_To_EPROM(void* data,uint16_t count)
+{
+    uint16_t address_temp,i;
+    address_temp = (uint8_t* )data  - &EEPROM_BASE_ADDR;
+    address_temp  = address_temp/4;
+	for(i = 0; i < count ; i++)
+	{
+		IAP_WriteWord(address_temp+i,PAGE_ADDR,1);
+	}
+}
+
