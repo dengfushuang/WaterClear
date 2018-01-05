@@ -2,6 +2,7 @@
 ..\output\main.o: ..\User\user_config.h
 ..\output\main.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\main.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\output\main.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
 ..\output\main.o: ..\CMSIS\HR8P506.h
 ..\output\main.o: ..\CMSIS\core_cm0.h
 ..\output\main.o: ..\CMSIS\core_cmInstr.h
@@ -13,8 +14,10 @@
 ..\output\main.o: ..\Library\Include\lib_timer.h
 ..\output\main.o: ..\Library\Include\lib_scs.h
 ..\output\main.o: ..\Library\Include\lib_wdt.h
+..\output\main.o: ..\Library\Include\lib_flashiap.h
 ..\output\main.o: ..\Hardware\Uart\uart.h
 ..\output\main.o: ..\User\user_config.h
 ..\output\main.o: ..\Hardware\TDS\tds.h
 ..\output\main.o: ..\User\my_systick.h
 ..\output\main.o: ..\Hardware\GSM\sim800c.h
+..\output\main.o: ..\User\msgbuild.h

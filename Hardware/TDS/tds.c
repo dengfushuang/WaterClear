@@ -76,6 +76,17 @@ ErrorStatus getFre1(uint32_t *ct1,uint32_t *ct2)
 	*ct2 = count2;
 	return SUCCESS;
 }
+ErrorStatus getTDS(volatile uint32_t *tds1,volatile uint32_t *tds2)
+{
+	volatile uint32_t x1,x2;
+	/***********º∆À„ÀÆ÷ **************/
+	
+	
+	
+	*tds1 = x1;
+	*tds2 = x2;
+	return SUCCESS;
+}
 void T16N0_IRQHandler(void)
 {
 	count1++;

@@ -17,6 +17,7 @@
 "..\output\lib_wdt.o"
 "..\output\main.o"
 "..\output\my_systick.o"
+"..\output\msgbuild.o"
 "..\output\startup_hr8p506.o"
 "..\output\tds.o"
 "..\output\uart.o"

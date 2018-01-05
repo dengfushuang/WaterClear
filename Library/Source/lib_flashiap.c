@@ -200,14 +200,18 @@ ErrorStatus IAP_Read(uint32_t *Ram_Addr, uint32_t Flash_Addr, uint8_t Len)
 
 	return SUCCESS;
 }
-void Save_To_EPROM(void* data,uint16_t count)
+ErrorStatus Save_To_EPROM(void* data,uint16_t count)
 {
     uint16_t address_temp,i;
+	uint32_t *cp;
+	volatile  ErrorStatus err = ERROR;
+	cp = (uint32_t *)data;
     address_temp = (uint8_t* )data  - &EEPROM_BASE_ADDR;
     address_temp  = address_temp/4;
-	for(i = 0; i < count ; i++)
+	for(i = 0; i < count ; i++,cp++)
 	{
-		IAP_WriteWord(address_temp+i,PAGE_ADDR,1);
+		err = IAP_WriteWord(address_temp+i,PAGE_ADDR,*cp);
 	}
+	return err;
 }
 

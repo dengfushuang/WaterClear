@@ -7,12 +7,9 @@
 #define  GSM_MSG_STOP_FLAG  0x1A
 #define GSM_BUF_SIZE 50
 
-typedef void (*TimeOut_Fun)(void);
-
-extern uint8_t GSM_BUF9[];
-extern uint8_t GSM_BUSY;
 
 void sim800c_init(uint32_t BPS);
+void get_IMEI(void);
 void GSM_TCPC_INIT(void);
 ErrorStatus GSM_TCP_Connect(void);
 void TCP_send(uint32_t serialnum);

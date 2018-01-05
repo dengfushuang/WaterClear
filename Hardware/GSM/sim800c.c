@@ -24,7 +24,7 @@ uint8_t  GSM_CIPSHUT[] = "AT+CIPSHUT\r\n";
 void sim800c_init(uint32_t BPS)
 {
 	int cnt=0;
-	ErrorStatus err;
+	volatile ErrorStatus err;
     UART0Init();
 	/***SIM800C电源控制脚初始化***/
     SIM800C_PWRKEY;
@@ -57,7 +57,7 @@ RECIEVE_READY:
 	{
 		;
 	}
-	if(check_ststus((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n","OK",2,10) == ERROR)
+	if(check_ststus((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n","OK",2,2) == ERROR)
 	{
 		;
 	}
@@ -65,6 +65,8 @@ RECIEVE_READY:
 	delay_nms(3000);
 	UART0Write_Str(GSM_CIPSRIP);
 	delay_nms(2000);
+	get_IMEI();
+	delay_nms(1000);
 }
 
 
@@ -81,7 +83,11 @@ check:
 	temp  = deal_string("+GSN",4); 
 	if(temp == ERROR)
 	{
-		
+		i++;
+		if(i > 10)
+		{
+			reset();
+		}
 		delay_nms(1000);
 		goto check;
 	}
@@ -124,7 +130,7 @@ void GSM_TCPC_INIT(void)
 ErrorStatus GSM_TCP_Connect(void)
 {
 	static int err_count = 0;
-	ErrorStatus temp = ERROR;
+	volatile ErrorStatus temp = ERROR;
 	if(check_ststus(GSM_BUF6,"OK",2,0) == ERROR)
 	{
 		err_count ++;
@@ -150,7 +156,7 @@ ErrorStatus GSM_TCP_Connect(void)
 			temp = check_ststus(GSM_BUF9,"CONNECT OK",10,0);
 			if(temp == SUCCESS)
 			{
-				temp = SUCCESS;
+				;
 			}
 			else
 			{
@@ -175,7 +181,7 @@ ErrorStatus GSM_TCP_Connect(void)
 ErrorStatus TCP_Recieve(uint8_t  rcv[])
 {
 	uint32_t i;
-	ErrorStatus temp;
+	volatile ErrorStatus temp;
 	temp = ERROR;
 	if(deal_string("RECV FROM:",10) == SUCCESS)
 	{

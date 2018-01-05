@@ -1,4 +1,5 @@
 #include "uart.h"
+extern volatile uint8_t sys_CLK;
 uint8_t UART0Init(void)
 {
 	GPIO_InitSettingType g;
@@ -71,21 +72,21 @@ uint8_t UART0Getch(void)
 
 uint8_t UART0GetFun(volatile ErrorStatus *count)
 {
-	uint8_t err;
+	uint8_t err,outtime = 0,old_f = 0;
 	while(!UART0->IF.RBIF)
-	{
-	    if(!UART0->STA.RXBUSY)
-	    {
-			break;
-	    }	
+	{	
+	   if(old_f != sys_CLK)
+	   {
+		   old_f = sys_CLK;
+		   outtime++;
+		   if(outtime >= 5)
+		   {
+			   *count = ERROR;
+			   return 0;
+		   }
+	   }
 	}
-	if(!UART0->STA.RXBUSY)
-	{
-		*count = ERROR;
-	}else
-	{
-		*count = SUCCESS;
-	}
+	*count = SUCCESS;
     err = UART_RecByte(UART0);
     return err;
 }
@@ -93,6 +94,7 @@ uint8_t UART0GetFun(volatile ErrorStatus *count)
 ErrorStatus UART0GetStr(uint8_t *str)
 {
 	uint16_t len = 0;
+
 	do{
 		*str = UART_RecByte(UART0);
 		len++;
@@ -196,7 +198,7 @@ ErrorStatus deal_string(const char *str,uint16_t str_len)
 ErrorStatus check_ststus(uint8_t *sendstr,char *str,uint16_t str_len,uint16_t resend)
 {
 	int cnt = 0;
-	ErrorStatus err ;
+	volatile ErrorStatus err ;
 	UART0Write_Str(sendstr);
 	err = deal_string(str,str_len);
 	while(err == ERROR)

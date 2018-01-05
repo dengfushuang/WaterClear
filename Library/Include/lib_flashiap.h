@@ -34,5 +34,5 @@ ErrorStatus IAP_ErasePage(uint8_t Page_Addr);
 ErrorStatus IAP_WriteCont(uint8_t Unit_addr, uint8_t Page_addr, uint32_t Data32);
 ErrorStatus IAP_WriteWord(uint8_t Unit_addr, uint8_t Page_addr, uint32_t Data32);
 ErrorStatus IAP_Read(uint32_t *Ram_Addr, uint32_t Flash_Addr, uint8_t Len);
-void Save_To_EPROM(void* data,uint16_t count);
+ErrorStatus Save_To_EPROM(void* data,uint16_t count);
 #endif
