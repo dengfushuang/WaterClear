@@ -3,6 +3,6 @@
 
 #include "user_config.h"
 
-uint32_t get_Pressure();
+uint32_t get_Pressure(void);
 
 #endif

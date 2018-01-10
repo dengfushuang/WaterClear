@@ -15,9 +15,12 @@
 ..\output\lib_flashiap.o: ..\Library\Include\lib_timer.h
 ..\output\lib_flashiap.o: ..\Library\Include\lib_scs.h
 ..\output\lib_flashiap.o: ..\Library\Include\lib_wdt.h
+..\output\lib_flashiap.o: ..\Library\Include\lib_adc.h
 ..\output\lib_flashiap.o: ..\Hardware\Uart\uart.h
 ..\output\lib_flashiap.o: ..\User\user_config.h
 ..\output\lib_flashiap.o: ..\Hardware\TDS\tds.h
 ..\output\lib_flashiap.o: ..\User\my_systick.h
 ..\output\lib_flashiap.o: ..\Hardware\GSM\sim800c.h
 ..\output\lib_flashiap.o: ..\User\msgbuild.h
+..\output\lib_flashiap.o: ..\Hardware\Pressure\pressure.h
+..\output\lib_flashiap.o: ..\Hardware\Flow\water_flow.h

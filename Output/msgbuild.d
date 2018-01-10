@@ -15,6 +15,7 @@
 ..\output\msgbuild.o: ..\Library\Include\lib_timer.h
 ..\output\msgbuild.o: ..\Library\Include\lib_scs.h
 ..\output\msgbuild.o: ..\Library\Include\lib_wdt.h
+..\output\msgbuild.o: ..\Library\Include\lib_adc.h
 ..\output\msgbuild.o: ..\Library\Include\lib_flashiap.h
 ..\output\msgbuild.o: ..\Hardware\Uart\uart.h
 ..\output\msgbuild.o: ..\User\user_config.h
@@ -22,3 +23,5 @@
 ..\output\msgbuild.o: ..\User\my_systick.h
 ..\output\msgbuild.o: ..\Hardware\GSM\sim800c.h
 ..\output\msgbuild.o: ..\User\msgbuild.h
+..\output\msgbuild.o: ..\Hardware\Pressure\pressure.h
+..\output\msgbuild.o: ..\Hardware\Flow\water_flow.h

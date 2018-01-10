@@ -40,14 +40,14 @@
 
 #define EEPROM_BASE_ADDR EPROM.IMEI[0]
 
-#define UART0_BUF_LEN 50
+#define RCV_BUF_LEN 120
+#define SEND_BUF_LEN 120
 
 
 
 
 typedef struct{
     uint8_t IMEI[16];
-	uint32_t VStatu;
 	uint32_t ServerFlow;
 	uint32_t RunFlow;
 	uint32_t ServerTime;
@@ -59,8 +59,9 @@ typedef struct{
 }EPROM_DATA;
 
 extern EPROM_DATA EPROM;
-extern uint8_t RCV_DATA_BUF[];
-extern void reset();
-extern void write_All_Flash();
-extern void read_All_Flash();
+extern uint8_t RCV_DATA_BUF[RCV_BUF_LEN];
+extern uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
+extern void reset(void);
+extern void write_All_Flash(void);
+extern void read_All_Flash(void);
 #endif

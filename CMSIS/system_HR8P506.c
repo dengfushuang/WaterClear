@@ -20,20 +20,6 @@ uint32_t SystemCoreClock = 16000000;
 
 void SystemInit(void)
 {
-	SYSTICK_InitStruType sys;
-	WDT_InitStruType wdt;
-	SCU_SysClkSelect(SCU_CLK_HRC);
-	PLLClock_Config(Enable,SCU_PLL_IN16M,SCU_PLL_48M,Enable);
-	sys.SysTick_ClkSource = SysTick_ClkS_Base;
-	sys.SysTick_ITEnable = Enable;
-	sys.SysTick_Value = 16000;
-	SysTick_Init(&sys);
-	WDT_RegUnLock();
-	wdt.WDT_Tms = 900;
-	wdt.WDT_IE = Disable;
-	wdt.WDT_Rst = Enable;
-	wdt.WDT_Clock = WDT_CLOCK_PCLK;
-	WDT_Init(&wdt);
-	WDT_Enable();
+	
 }
 

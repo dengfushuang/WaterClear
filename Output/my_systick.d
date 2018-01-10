@@ -15,6 +15,7 @@
 ..\output\my_systick.o: ..\Library\Include\lib_timer.h
 ..\output\my_systick.o: ..\Library\Include\lib_scs.h
 ..\output\my_systick.o: ..\Library\Include\lib_wdt.h
+..\output\my_systick.o: ..\Library\Include\lib_adc.h
 ..\output\my_systick.o: ..\Library\Include\lib_flashiap.h
 ..\output\my_systick.o: ..\Hardware\Uart\uart.h
 ..\output\my_systick.o: ..\User\user_config.h
@@ -22,3 +23,5 @@
 ..\output\my_systick.o: ..\User\my_systick.h
 ..\output\my_systick.o: ..\Hardware\GSM\sim800c.h
 ..\output\my_systick.o: ..\User\msgbuild.h
+..\output\my_systick.o: ..\Hardware\Pressure\pressure.h
+..\output\my_systick.o: ..\Hardware\Flow\water_flow.h

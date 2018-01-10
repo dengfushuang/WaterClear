@@ -1,0 +1,33 @@
+SET PATH=D:\Keil\ARM\ARMCC\Bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\ATMEL Corporation\AT91-ISP v1.13\Library\;C:\Program Files (x86)\ATMEL Corporation\AT91-ISP v1.13\sam-ba 2.9;D:\VSCODE\Microsoft VS Code\bin;D:\Mingw\bin;C:\Program Files (x86)\SSH Communications Security\SSH Secure Shell
+SET CPU_TYPE=ARMCM0
+SET CPU_VENDOR=ARM
+SET UV2_TARGET=Project
+SET CPU_CLOCK=0x00F42400
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\hr8p506_iap_table.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_adc.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_euart.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_flashiap.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_gpio.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_iic.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_lcd.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_led.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_printf.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_rtc.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_scs.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_scu.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_spi.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_timer.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_uart.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\lib_wdt.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\main.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\my_systick.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\msgbuild.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmAsm" --Via "..\output\startup_hr8p506._ia"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\system_hr8p506.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\tds.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\uart.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\sim800c.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\pressure.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\water_flow.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmLink" --Via "..\Output\WaterClear.lnp"
+"D:\Keil\ARM\ARMCC\Bin\fromelf.exe" "..\Output\WaterClear.axf" --i32combined --output "..\Output\WaterClear.hex"

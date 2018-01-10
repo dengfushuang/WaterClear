@@ -191,14 +191,14 @@ typedef enum
 #define SCU_FlashWait_16Tclk() 	(SCU->FLASHWAIT.ACCT = 0xF)
 
 /* 系统时钟后分频选择 */
-#define SCU_SysClk_Div1() 	(SCU->SCLKEN0.SYSCLKDIV = 0)
-#define SCU_SysClk_Div2() 	(SCU->SCLKEN0.SYSCLKDIV = 1)
-#define SCU_SysClk_Div4() 	(SCU->SCLKEN0.SYSCLKDIV = 2)
-#define SCU_SysClk_Div8() 	(SCU->SCLKEN0.SYSCLKDIV = 3)
-#define SCU_SysClk_Div16() 	(SCU->SCLKEN0.SYSCLKDIV = 4)
-#define SCU_SysClk_Div32() 	(SCU->SCLKEN0.SYSCLKDIV = 5)
-#define SCU_SysClk_Div64() 	(SCU->SCLKEN0.SYSCLKDIV = 6)
-#define SCU_SysClk_Div128() (SCU->SCLKEN0.SYSCLKDIV = 7)
+#define SCU_SysClk_Div1() 	(SCU->SCLKEN0.SYSCLK_DIV = 0)
+#define SCU_SysClk_Div2() 	(SCU->SCLKEN0.SYSCLK_DIV = 1)
+#define SCU_SysClk_Div4() 	(SCU->SCLKEN0.SYSCLK_DIV = 2)
+#define SCU_SysClk_Div8() 	(SCU->SCLKEN0.SYSCLK_DIV = 3)
+#define SCU_SysClk_Div16() 	(SCU->SCLKEN0.SYSCLK_DIV = 4)
+#define SCU_SysClk_Div32() 	(SCU->SCLKEN0.SYSCLK_DIV = 5)
+#define SCU_SysClk_Div64() 	(SCU->SCLKEN0.SYSCLK_DIV = 6)
+#define SCU_SysClk_Div128() (SCU->SCLKEN0.SYSCLK_DIV = 7)
 
 /* 外部时钟低功耗模式 */
 #define SCU_XTAL_LP_Enable()  	(SCU->SCLKEN0.XTAL_LP = 0)

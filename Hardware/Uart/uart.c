@@ -1,5 +1,10 @@
 #include "uart.h"
 extern volatile uint8_t sys_CLK;
+volatile uint8_t rcvflag = 1;
+volatile uint8_t start_rcv_flag = 1;
+volatile uint8_t end_rcv_flag = 1;
+volatile uint8_t msg_rcv_flag = 0;
+volatile uint8_t RxCounter = 0,RxCounter1 = 0;
 uint8_t UART0Init(void)
 {
 	GPIO_InitSettingType g;
@@ -33,34 +38,50 @@ uint8_t UART0Init(void)
 	UART_ITConfig(UART0,UART_IT_RB,Enable);
 	NVIC_Init(NVIC_UART0_IRQn,NVIC_Priority_1,Enable);
 	UART0_RxEnable();
+	UART0_TxEnable();
 	return 1;
+}
+void clear_Buffer(void)
+{
+	uint16_t i;
+	for( i =0 ; i < (RCV_BUF_LEN-1) ;i++)
+	{
+		RCV_DATA_BUF[i] = 0;
+	}
 }
 void UART0Putch(uint8_t Data)
 {
-	while(UART0->STA.TXBUSY == 1);
+	while(UART0->TB7.TBFF7 == 1);
 	UART0->TBW.Byte[0] = Data;
 }
 
 void UART0Put_str(uint8_t *Data, uint16_t NByte)
 {
-	UART0_TxEnable();
     while (NByte-- > 0)
     {
         UART0Putch(*Data++);
     }
 	while(UART0->STA.TXBUSY == 1);
-	UART0_TxDisable();
 }
 
 void UART0Write_Str(uint8_t *Data)
 {
-	UART0_TxEnable();
-    while (*Data != '\0' )
+	uint8_t *cp,i;
+	RxCounter = 0;
+	RxCounter1 = 0;
+	msg_rcv_flag = 0;
+	for( i =0 ; i < (SEND_BUF_LEN-1) ;i++)
+	{
+		SEND_DATA_BUF[i] = 0;
+	}
+    cp = SEND_DATA_BUF;
+	sprintf((char *)SEND_DATA_BUF,"%s",(char *)Data);
+    while (*cp != '\0' )
     {
-        UART0Putch(*Data++);
+        UART0Putch(*cp);
+		cp++;
     }
 	while(UART0->STA.TXBUSY == 1);
-	UART0_TxDisable();
 }
 
 uint8_t UART0Getch(void)
@@ -91,36 +112,62 @@ uint8_t UART0GetFun(volatile ErrorStatus *count)
     return err;
 }
 
-ErrorStatus UART0GetStr(uint8_t *str)
+ErrorStatus UART0_Recieve(void)
 {
-	uint16_t len = 0;
-
-	do{
-		*str = UART_RecByte(UART0);
-		len++;
-		if(len >= (UART0_BUF_LEN-1))
-		{
-			break;
-		}
-		str++;
-	}while(UART0->STA.RXBUSY);
-	if(UART0->STA.RXBUSY)
+	uint16_t i;
+	uint16_t timeout = 6000;
+	ErrorStatus err = ERROR;
+	start_rcv_flag = 1;
+	while(start_rcv_flag)
 	{
-		return ERROR;
-	}else
-	{
-		while(len < (UART0_BUF_LEN-1))
-		{
-			*str = '\0';
-			str++;
-			len++;
-		}
-	    return SUCCESS;
+		Delaynms(1);
+//		timeout --;
+//		if(timeout <= 0)
+//		{
+//		    return ERROR;
+//		}
 	}
+	while(UART0->STA.RXBUSY);
+	for(i = RxCounter ; i <(RCV_BUF_LEN -1);i++ )
+	{
+		RCV_DATA_BUF[i] = 0;
+	}
+	err = SUCCESS;
+	return err;
 }
 void UART0_IRQHandler()
 {
-	
+	uint8_t temp;
+	start_rcv_flag = 0;
+	if((UART_GetITStatus(UART0,UART_IT_RB) != RESET) && (UART_GetFlagStatus(UART0,UART_FLAG_RB) != RESET))
+	{
+		temp = UART0->RBR.Byte[0];
+	    if(msg_rcv_flag)
+		{
+			if(temp >= 32 && temp <= 127)
+			{
+				RCV_DATA_BUF[RxCounter] = temp;
+			    RxCounter++;
+			}
+		}else
+		{
+			if(temp == SEND_DATA_BUF[RxCounter1])
+			{
+				RxCounter1++;
+				if(SEND_DATA_BUF[RxCounter1] == '\r' || SEND_DATA_BUF[RxCounter1] == '\n' || SEND_DATA_BUF[RxCounter1] == '\0')
+				{
+					msg_rcv_flag = 1;
+				}
+			}
+			else
+			{
+				RxCounter1 = 0;
+			}
+		}
+		
+		
+		
+	}
 }
 
 /*********************************************************************************************************
@@ -129,7 +176,52 @@ void UART0_IRQHandler()
 ** 输　入: buf-数据缓冲区,str-比较字符串,buf_len-缓冲区长度，timeout-超时时间,timeout_fun-超时回调函数；
 ** 输　出: 无
 ********************************************************************************************************/
-ErrorStatus deal_string(const char *str,uint16_t str_len)
+
+ErrorStatus get_MSG(char * str)
+{
+	sprintf((char *)SEND_DATA_BUF,"%s",str);
+	return UART0_Recieve();		
+}
+ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
+{
+	uint8_t i;
+	ErrorStatus err0 = ERROR;
+	for(i = 0 ; i < (resend+1) ; i++)
+	{
+		UART0Write_Str(sendstr);
+		if(UART0_Recieve() == SUCCESS)
+		{
+			err0 = SUCCESS;
+			break;
+		}
+		delay_nms(5000);
+	}
+	return err0;
+}
+ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend)
+{
+	uint8_t i;
+	ErrorStatus err0 = ERROR;
+	for(i = 0 ; i < (resend+1) ; i++)
+	{
+		UART0Write_Str(sendstr);
+		if(UART0_Recieve() == SUCCESS)
+		{
+			if((strstr((const char *)RCV_DATA_BUF,str) != NULL))
+			{
+				err0 = SUCCESS;
+				BEE_ON();
+				delay_nms(1000);
+				BEE_OFF();
+				break;
+			}
+		}
+		delay_nms(5000);
+	}
+	return err0;
+}
+
+/*ErrorStatus deal_string(const char *str,uint16_t str_len)
 {
 	uint8_t data_temp,slen = 0;
 	const char *cp1,*cp2;
@@ -213,6 +305,6 @@ ErrorStatus check_ststus(uint8_t *sendstr,char *str,uint16_t str_len,uint16_t re
 		err = deal_string(str,str_len);
 	}
 	return err;
-}
+}*/
 
 

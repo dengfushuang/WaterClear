@@ -1,0 +1,6 @@
+-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow
+-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE
+-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include
+-I D:\Keil\ARM\CMSIS\Include
+-D__UVISION_VERSION="518" -DARMCM0
+-o ..\output\lib_led.o --omf_browse ..\output\lib_led.crf --depend ..\output\lib_led.d "..\Library\Source\lib_led.c"

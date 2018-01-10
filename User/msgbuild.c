@@ -6,16 +6,26 @@ void valve_Init()
 	g.Signal = GPIO_Pin_Signal_Digital;
 	g.Func = GPIO_Reuse_Func0;
 	g.Dir = GPIO_Direction_Output;
-	g.ODE = GPIO_O
-	
+	g.ODE = GPIO_ODE_Output_Disable;
+	g.DS = GPIO_DS_Output_Normal;
+	GPIO_Init(GPIO_Pin_A11,&g);
+	GPIO_Init(GPIO_Pin_A12,&g);
+	GPIO_Init(GPIO_Pin_A13,&g);
+	GPIO_WriteBit(GPIO_Pin_A11,0);
+	GPIO_WriteBit(GPIO_Pin_A12,0);
+	GPIO_WriteBit(GPIO_Pin_A13,0);
 }
 void open_Water()
 {
-	
+	GPIO_WriteBit(GPIO_Pin_A11,1);
+	GPIO_WriteBit(GPIO_Pin_A12,1);
+	GPIO_WriteBit(GPIO_Pin_A13,1);
 }
 void close_Water()
 {
-	
+	GPIO_WriteBit(GPIO_Pin_A11,0);
+	GPIO_WriteBit(GPIO_Pin_A12,0);
+	GPIO_WriteBit(GPIO_Pin_A13,0);
 }
 uint8_t get_Valve_Status()
 {
@@ -43,16 +53,16 @@ void MSG_Build(uint8_t *sendStr)
 	uint16_t len;
 	char temp[20];
 	volatile uint32_t tds1 = 0,tds2 = 0;
-	getTDS(&tds1,&tds2);
-	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.IMEI[0]);
-    len+=sprintf((char *)temp,"\"CMD\":\"01\",");
-	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
-	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
-	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"TDS1\":%03u,\"TDS2\":%03u,\"F\":%6u}",tds1,tds2,EPROM.RunFlow);
-	strcat((char *)sendStr,temp);
+	get_TDS(&tds1,&tds2);
+//	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.IMEI[0]);
+//    len+=sprintf((char *)temp,"\"CMD\":\"01\",");
+//	strcat((char *)sendStr,temp);
+//	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
+//	strcat((char *)sendStr,temp);
+//	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
+//	strcat((char *)sendStr,temp);
+//	len+=sprintf((char *)temp,"\"TDS1\":%03u,\"TDS2\":%03u,\"F\":%6u}",tds1,tds2,EPROM.RunFlow);
+//	strcat((char *)sendStr,temp);
 }
 
 ErrorStatus MSG_Deal(uint8_t *rcv)
@@ -230,4 +240,16 @@ ErrorStatus MSG_Deal(uint8_t *rcv)
 	{
 		return ERROR;
 	}
+}
+
+
+
+void RunApplication()
+{
+	uint32_t waterflow;
+	uint8_t valve;
+	waterflow = get_Flow();
+	valve = get_Valve_Status();
+	EPROM.RunFlow = EPROM.RunFlow+waterflow;
+	EPROM.ValveStatus = valve;
 }

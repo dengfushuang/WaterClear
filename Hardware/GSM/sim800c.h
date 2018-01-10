@@ -4,9 +4,8 @@
 #define SIM800C_PWRKEY GPIO->PADIRBCR.Word = 0X02000000
 #define PWRKEY_H GPIO->PADATABSR.Word  = 0x02000000
 #define PWRKEY_L GPIO->PADATABCR.Word  = 0x02000000
+#define NET_LED (GPIO->PAPORT.Word >> 24)&0x00000001
 #define  GSM_MSG_STOP_FLAG  0x1A
-#define GSM_BUF_SIZE 50
-
 
 void sim800c_init(uint32_t BPS);
 void get_IMEI(void);

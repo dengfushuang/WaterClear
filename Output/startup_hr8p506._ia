@@ -1,0 +1,6 @@
+--cpu Cortex-M0 --li -g --apcs=interwork 
+-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE
+-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include
+-I D:\Keil\ARM\CMSIS\Include
+--pd "__UVISION_VERSION SETA 518" --pd "ARMCM0 SETA 1"
+--list .\startup_hr8p506.lst --xref -o ..\output\startup_hr8p506.o --depend ..\output\startup_hr8p506.d "..\StartUp\startup_HR8P506.s"

@@ -19,10 +19,12 @@
 "..\output\my_systick.o"
 "..\output\msgbuild.o"
 "..\output\startup_hr8p506.o"
+"..\output\system_hr8p506.o"
 "..\output\tds.o"
 "..\output\uart.o"
 "..\output\sim800c.o"
-"..\output\system_hr8p506_1.o"
+"..\output\pressure.o"
+"..\output\water_flow.o"
 --strict --scatter "..\Output\WaterClear.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

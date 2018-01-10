@@ -1,5 +1,5 @@
 Dependencies for Project 'WaterClear', Target 'Project': (DO NOT MODIFY !)
-F (..\Library\Source\hr8p506_iap_table.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\hr8p506_iap_table.o --omf_browse ..\output\hr8p506_iap_table.crf --depend ..\output\hr8p506_iap_table.d)
+F (..\Library\Source\hr8p506_iap_table.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\hr8p506_iap_table.o --omf_browse ..\output\hr8p506_iap_table.crf --depend ..\output\hr8p506_iap_table.d)
 I (..\Library\Include\hr8p506_iap_table.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -7,7 +7,7 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_adc.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_adc.o --omf_browse ..\output\lib_adc.crf --depend ..\output\lib_adc.d)
+F (..\Library\Source\lib_adc.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_adc.o --omf_browse ..\output\lib_adc.crf --depend ..\output\lib_adc.d)
 I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -15,7 +15,7 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_euart.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_euart.o --omf_browse ..\output\lib_euart.crf --depend ..\output\lib_euart.d)
+F (..\Library\Source\lib_euart.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_euart.o --omf_browse ..\output\lib_euart.crf --depend ..\output\lib_euart.d)
 I (..\Library\Include\lib_euart.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -24,8 +24,8 @@ I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_hr8p506.h)(0x5A4ED40B)
-F (..\Library\Source\lib_flashiap.c)(0x5A4EEC9C)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_flashiap.o --omf_browse ..\output\lib_flashiap.crf --depend ..\output\lib_flashiap.d)
+I (..\CMSIS\system_hr8p506.h)(0x5A5480D8)
+F (..\Library\Source\lib_flashiap.c)(0x5A4EEC9C)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_flashiap.o --omf_browse ..\output\lib_flashiap.crf --depend ..\output\lib_flashiap.d)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -33,28 +33,31 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\Library\Source\lib_gpio.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_gpio.o --omf_browse ..\output\lib_gpio.crf --depend ..\output\lib_gpio.d)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\Library\Source\lib_gpio.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_gpio.o --omf_browse ..\output\lib_gpio.crf --depend ..\output\lib_gpio.d)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
-F (..\Library\Source\lib_iic.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_iic.o --omf_browse ..\output\lib_iic.crf --depend ..\output\lib_iic.d)
+F (..\Library\Source\lib_iic.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_iic.o --omf_browse ..\output\lib_iic.crf --depend ..\output\lib_iic.d)
 I (..\Library\Include\lib_iic.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -62,8 +65,8 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_hr8p506.h)(0x5A4ED40B)
-F (..\Library\Source\lib_lcd.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_lcd.o --omf_browse ..\output\lib_lcd.crf --depend ..\output\lib_lcd.d)
+I (..\CMSIS\system_hr8p506.h)(0x5A5480D8)
+F (..\Library\Source\lib_lcd.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_lcd.o --omf_browse ..\output\lib_lcd.crf --depend ..\output\lib_lcd.d)
 I (..\Library\Include\lib_lcd.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -71,7 +74,7 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_led.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_led.o --omf_browse ..\output\lib_led.crf --depend ..\output\lib_led.d)
+F (..\Library\Source\lib_led.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_led.o --omf_browse ..\output\lib_led.crf --depend ..\output\lib_led.d)
 I (..\Library\Include\lib_led.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -79,7 +82,7 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_printf.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_printf.o --omf_browse ..\output\lib_printf.crf --depend ..\output\lib_printf.d)
+F (..\Library\Source\lib_printf.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_printf.o --omf_browse ..\output\lib_printf.crf --depend ..\output\lib_printf.d)
 I (..\Library\Include\lib_printf.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
@@ -90,7 +93,7 @@ I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x569DEA3A)
-F (..\Library\Source\lib_rtc.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_rtc.o --omf_browse ..\output\lib_rtc.crf --depend ..\output\lib_rtc.d)
+F (..\Library\Source\lib_rtc.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_rtc.o --omf_browse ..\output\lib_rtc.crf --depend ..\output\lib_rtc.d)
 I (..\Library\Include\lib_rtc.h)(0x5A4ED40B)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
@@ -98,7 +101,7 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_scs.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_scs.o --omf_browse ..\output\lib_scs.crf --depend ..\output\lib_scs.d)
+F (..\Library\Source\lib_scs.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_scs.o --omf_browse ..\output\lib_scs.crf --depend ..\output\lib_scs.d)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -106,8 +109,8 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_scu.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_scu.o --omf_browse ..\output\lib_scu.crf --depend ..\output\lib_scu.d)
-I (..\Library\Include\lib_scu.h)(0x5A4ED40B)
+F (..\Library\Source\lib_scu.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_scu.o --omf_browse ..\output\lib_scu.crf --depend ..\output\lib_scu.d)
+I (..\Library\Include\lib_scu.h)(0x5A548C7B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
@@ -115,7 +118,7 @@ I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_spi.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_spi.o --omf_browse ..\output\lib_spi.crf --depend ..\output\lib_spi.d)
+F (..\Library\Source\lib_spi.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_spi.o --omf_browse ..\output\lib_spi.crf --depend ..\output\lib_spi.d)
 I (..\Library\Include\lib_spi.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -123,8 +126,8 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_hr8p506.h)(0x5A4ED40B)
-F (..\Library\Source\lib_timer.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_timer.o --omf_browse ..\output\lib_timer.crf --depend ..\output\lib_timer.d)
+I (..\CMSIS\system_hr8p506.h)(0x5A5480D8)
+F (..\Library\Source\lib_timer.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_timer.o --omf_browse ..\output\lib_timer.crf --depend ..\output\lib_timer.d)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
@@ -132,7 +135,7 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-F (..\Library\Source\lib_uart.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_uart.o --omf_browse ..\output\lib_uart.crf --depend ..\output\lib_uart.d)
+F (..\Library\Source\lib_uart.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_uart.o --omf_browse ..\output\lib_uart.crf --depend ..\output\lib_uart.d)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -140,8 +143,8 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_hr8p506.h)(0x5A4ED40B)
-F (..\Library\Source\lib_wdt.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_wdt.o --omf_browse ..\output\lib_wdt.crf --depend ..\output\lib_wdt.d)
+I (..\CMSIS\system_hr8p506.h)(0x5A5480D8)
+F (..\Library\Source\lib_wdt.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\lib_wdt.o --omf_browse ..\output\lib_wdt.crf --depend ..\output\lib_wdt.d)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
@@ -149,9 +152,9 @@ I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_hr8p506.h)(0x5A4ED40B)
-F (..\User\main.c)(0x5A4F384E)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\CMSIS\system_hr8p506.h)(0x5A5480D8)
+F (..\User\main.c)(0x5A55CBAA)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -160,21 +163,24 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\User\my_systick.c)(0x5A4F0C03)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\my_systick.o --omf_browse ..\output\my_systick.crf --depend ..\output\my_systick.d)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\User\my_systick.c)(0x5A54D281)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\my_systick.o --omf_browse ..\output\my_systick.crf --depend ..\output\my_systick.d)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -183,20 +189,23 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\User\msgbuild.c)(0x5A4F384E)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\msgbuild.o --omf_browse ..\output\msgbuild.crf --depend ..\output\msgbuild.d)
-I (..\User\msgbuild.h)(0x5A4F3043)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\User\msgbuild.c)(0x5A55BCCB)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\msgbuild.o --omf_browse ..\output\msgbuild.crf --depend ..\output\msgbuild.d)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -205,21 +214,36 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
 F (..\StartUp\startup_HR8P506.s)(0x5A4ED40B)(--cpu Cortex-M0 --li -g --apcs=interwork -I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 518" --pd "ARMCM0 SETA 1"--list .\startup_hr8p506.lst --xref -o ..\output\startup_hr8p506.o --depend ..\output\startup_hr8p506.d)
-F (..\Hardware\TDS\tds.c)(0x5A4F02A0)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\tds.o --omf_browse ..\output\tds.crf --depend ..\output\tds.d)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\user_config.h)(0x5A4F1400)
+F (..\StartUp\system_HR8P506.c)(0x5A548ED2)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\system_hr8p506.o --omf_browse ..\output\system_hr8p506.crf --depend ..\output\system_hr8p506.d)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
+I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
+I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
+I (..\Library\Include\lib_scu.h)(0x5A548C7B)
+I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
+I (..\Library\Include\type.h)(0x5A4ED40B)
+I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
+I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+F (..\Hardware\TDS\tds.c)(0x5A55C8D6)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\tds.o --omf_browse ..\output\tds.crf --depend ..\output\tds.d)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -228,20 +252,23 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\Hardware\Uart\uart.c)(0x5A4F0E90)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\uart.o --omf_browse ..\output\uart.crf --depend ..\output\uart.d)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\Hardware\Uart\uart.c)(0x5A55887E)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\uart.o --omf_browse ..\output\uart.crf --depend ..\output\uart.d)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -250,20 +277,23 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\Hardware\GSM\sim800c.c)(0x5A4F05F4)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\sim800c.o --omf_browse ..\output\sim800c.crf --depend ..\output\sim800c.d)
-I (..\Hardware\GSM\sim800c.h)(0x5A4EE33C)
-I (..\User\user_config.h)(0x5A4F1400)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\Hardware\GSM\sim800c.c)(0x5A55CBAA)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\sim800c.o --omf_browse ..\output\sim800c.crf --depend ..\output\sim800c.d)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\user_config.h)(0x5A557E02)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
@@ -272,26 +302,67 @@ I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
 I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
 I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
 I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
-I (..\Hardware\Uart\uart.h)(0x5A4ED40B)
-I (..\Hardware\TDS\tds.h)(0x5A4F02B9)
-I (..\User\my_systick.h)(0x5A4ED40B)
-I (..\User\msgbuild.h)(0x5A4F3043)
-F (..\CMSIS\system_HR8P506.c)(0x5A4ED40B)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\system_hr8p506_1.o --omf_browse ..\output\system_hr8p506_1.crf --depend ..\output\system_hr8p506_1.d)
-I (..\CMSIS\system_HR8P506.h)(0x5A4ED40B)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\Hardware\Pressure\pressure.c)(0x5A52CDE5)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\pressure.o --omf_browse ..\output\pressure.crf --depend ..\output\pressure.d)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
+I (..\User\user_config.h)(0x5A557E02)
+I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
 I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
 I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
 I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
-I (..\Library\Include\lib_scu.h)(0x5A4ED40B)
-I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
 I (..\Library\Include\type.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
+I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
+I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
+I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
 I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
 I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
+I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+F (..\Hardware\Flow\water_flow.c)(0x5A52CDE5)(-c --cpu Cortex-M0 --li -g -O0 --apcs=interwork --split_sections -I ..\CMSIS -I ..\Hardware -I ..\Library\Include -I ..\StartUp -I ..\User -I ..\Hardware\GSM -I ..\Hardware\TDS -I ..\Hardware\Uart -I ..\Hardware\Pressure -I ..\Hardware\Flow-I E:\Work\¾»Ë®Æ÷\WaterClear\Project\RTE-I D:\Keil\ARM\PACK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include-I D:\Keil\ARM\CMSIS\Include-D__UVISION_VERSION="518" -DARMCM0-o ..\output\water_flow.o --omf_browse ..\output\water_flow.crf --depend ..\output\water_flow.d)
+I (..\Hardware\Flow\water_flow.h)(0x5A52CD93)
+I (..\User\user_config.h)(0x5A557E02)
+I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x569DEA3A)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x569DEA3A)
+I (D:\Keil\ARM\ARMCC\include\string.h)(0x569DEA3A)
+I (..\CMSIS\HR8P506.h)(0x5A4ED40B)
+I (..\CMSIS\core_cm0.h)(0x5A4ED40B)
+I (..\CMSIS\core_cmInstr.h)(0x5A4ED40B)
+I (..\CMSIS\core_cmFunc.h)(0x5A4ED40B)
+I (..\Library\Include\type.h)(0x5A4ED40B)
+I (..\CMSIS\system_HR8P506.h)(0x5A5480D8)
+I (..\Library\Include\lib_gpio.h)(0x5A4ED40B)
+I (..\Library\Include\lib_uart.h)(0x5A4ED40B)
+I (..\Library\Include\lib_timer.h)(0x5A4ED40B)
+I (..\Library\Include\lib_scs.h)(0x5A4ED40B)
+I (..\Library\Include\lib_wdt.h)(0x5A4ED40B)
+I (..\Library\Include\lib_adc.h)(0x5A4ED40B)
+I (..\Library\Include\lib_flashiap.h)(0x5A4ED65E)
+I (..\Hardware\Uart\uart.h)(0x5A557F73)
+I (..\Hardware\TDS\tds.h)(0x5A55A9F9)
+I (..\User\my_systick.h)(0x5A54B612)
+I (..\Hardware\GSM\sim800c.h)(0x5A55803A)
+I (..\User\msgbuild.h)(0x5A558A44)
+I (..\Hardware\Pressure\pressure.h)(0x5A52CD93)
