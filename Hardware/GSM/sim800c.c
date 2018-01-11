@@ -23,20 +23,23 @@ uint8_t  GSM_CIPSHUT[] = "AT+CIPSHUT\r\n";
 void sim800c_init(uint32_t BPS)
 {
 	volatile ErrorStatus err;
-    //UART0Init();
 	/***SIM800C电源控制脚初始化***/
     SIM800C_PWRKEY;
 	delay_nms(100);
 	PWRKEY_H;
-	while(!GPIO_ReadBit(GPIO_Pin_A8));
-//	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
-//	delay_nms(5000);
-//	delay_nms(5000);
-//	delay_nms(5000);
-//	delay_nms(5000);
-//	BEE_ON();
-//	delay_nms(1000);
-//	BEE_OFF();
+//	while(!GPIO_ReadBit(GPIO_Pin_A8));
+	UART0Write_Str(GSM_BUF0);
+	delay_nms(1000);
+	get_MSG("Call");
+	get_MSG("SMS");
+	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
+	delay_nms(5000);
+	delay_nms(5000);
+	delay_nms(5000);
+	delay_nms(5000);
+	BEE_ON();
+	delay_nms(1000);
+	BEE_OFF();
 	delay_nms(5000);
 	delay_nms(5000);
 	clear_Buffer();
@@ -99,7 +102,6 @@ void get_IMEI(void)
 		}
 		EPROM.IMEI[15] = '\0';
 	}
-	UART0Write_Str(EPROM.IMEI);
 }
 /*********************************************************************************************************
 ** 函数名称: GSM_TCPC_INIT
@@ -128,9 +130,9 @@ ErrorStatus GSM_TCP_Connect(void)
 	{
 		err_count ++;
 	}
-	if((temp = check_ststus(GSM_BUF7,"OK",0))== ERROR)
+	if((temp = check_ststus(GSM_BUF7,"",0)) == ERROR)
 	{
-		err_count ++;
+	    err_count ++;
 	}
 	if(err_count > 10)
 	{

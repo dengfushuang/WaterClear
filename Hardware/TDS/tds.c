@@ -26,7 +26,8 @@ void tds_Init(void)
 }
 ErrorStatus get_Fre1(volatile uint32_t *ct1)
 {
-	uint32_t t1 = 0,t2 = 0 ,tdscount = 0;
+	volatile uint32_t t1 = 0,t2 = 0 ;
+	volatile uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
 	T16Nx_Enable(T16N2);
@@ -39,12 +40,13 @@ ErrorStatus get_Fre1(volatile uint32_t *ct1)
 			t2 = t1;
 		}
 	}
-	T16Nx_Disable(T16N2);
-	*ct1 = tdscount; 
+	*ct1 = tdscount;
+    return SUCCESS;	
 }
 ErrorStatus get_Fre2(volatile uint32_t *ct2)
 {
-	uint32_t t1 = 0,t2 = 0 ,tdscount = 0;
+	volatile uint32_t t1 = 0,t2 = 0;
+	volatile uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
 	T16Nx_Enable(T16N2);
@@ -57,101 +59,18 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 			t2 = t1;
 		}
 	}
-	T16Nx_Disable(T16N2);
-	*ct2 = tdscount; 
+	*ct2 = tdscount;
+	return SUCCESS;	
 }
-/*ErrorStatus get_Fre1(volatile uint32_t *ct1)
-{
-
-	
-	tcount = 0;
-	tflag = TIME_OUT;
-	while((GPIO_ReadBit(GPIO_Pin_A6) == 1) && (tflag > 1)){tflag--;}
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	tcount = 0;
-	tflag = TIME_OUT;
-	while((GPIO_ReadBit(GPIO_Pin_A6) == 0) &&  (tflag > 1)){tflag--;}
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	tcount = 0;
-	tflag = TIME_OUT;
-	T16Nx_Enable(T16N2);
-	while((GPIO_ReadBit(GPIO_Pin_A6) == 1) &&  (tflag > 1)){tflag--;}
-	T16Nx_Disable(T16N2);
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	*ct1 = tcount;
-	return SUCCESS;
-}
-
-ErrorStatus get_Fre2(volatile uint32_t *ct2)
-{
-	
-    tcount = 0;	
-	tflag = TIME_OUT;
-	while((GPIO_ReadBit(GPIO_Pin_A8) == 1) &&  (tflag > 1))
-    {
-	    tflag--;
-	}
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	tcount = 0;
-	tflag = TIME_OUT;
-	while((GPIO_ReadBit(GPIO_Pin_A8) == 0) &&  (tflag > 1))
-    { 
-	    tflag--;
-	}
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	tcount = 0;
-	tflag = TIME_OUT;
-	T16Nx_Enable(T16N2);
-	while((GPIO_ReadBit(GPIO_Pin_A8) == 1) &&  (tflag > 1))
-    {
-	    tflag--;
-	}
-	T16Nx_Disable(T16N2);
-	if(tflag <= 1)
-	{
-		return ERROR;
-	}
-	*ct2 = tcount;
-}*/
 ErrorStatus get_TDS(volatile uint32_t *tds1,volatile uint32_t *tds2)
 {
 	volatile uint32_t x1 = 0,x2 = 0;
-	ErrorStatus er = ERROR;
 	/***********¼ÆËãË®ÖÊ**************/
-	if(get_Fre1(&x1) == ERROR)
-	{
-		x1 = 99999;
-	}
-	else
-	{
-		er = SUCCESS;
-	}
-	if(get_Fre2(&x2) == ERROR)
-	{
-		x2 = 99999;
-	}
-	else
-	{
-		er = SUCCESS;
-	}
+	get_Fre1(&x1);
+	get_Fre2(&x2);
 	*tds1 = x1;
 	*tds2 = x2;
-	return er;
+	return SUCCESS;
 }
 void T16N2_IRQHandler(void)
 {
@@ -159,10 +78,10 @@ void T16N2_IRQHandler(void)
 	{
 		T16Nx_ClearITPendingBit(T16N2,T16Nx_IT_MAT0);
 		tcount++;
-		if(tcount >= 99)
+		if(tcount >= 999)
 		{
 			tflag = 0;
-			tcount = 0;
+			T16Nx_Disable(T16N2);
 		}
 	}
 }

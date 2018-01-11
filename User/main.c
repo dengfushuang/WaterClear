@@ -52,12 +52,12 @@ void HardWare_Init()
 	valve_Init();
 	timer_Init();
 	tds_Init();
-//	BEE_init();
+	BEE_init();
 	UART0Init();
-//	delay_nms(1000);
-//	BEE_ON();
-//	delay_nms(2000);
-//	BEE_OFF();
+	delay_nms(1000);
+	BEE_ON();
+	delay_nms(2000);
+	BEE_OFF();  
 	sim800c_init(115200);
 }
 int main()
@@ -70,21 +70,20 @@ int main()
     while(1)
 	{
 //		GSM_TCPC_INIT();
-		MSG_Build(RCV_DATA_BUF);
-		UART0Write_Str(RCV_DATA_BUF);
 //		if(count >5)
 //		{
 //			reset();
 //		}
-//		if(GSM_TCP_Connect() == SUCCESS)
-//		{
-//			UART0Write_Str(RCV_DATA_BUF);
-//			UART0Putch(GSM_MSG_STOP_FLAG);
-//			if(TCP_Recieve(RCV_DATA_BUF) == SUCCESS)
-//			{
-//				MSG_Deal(RCV_DATA_BUF);
-//			}
-//		}
+		if(GSM_TCP_Connect() == SUCCESS)
+		{
+			MSG_Build(RCV_DATA_BUF);
+			UART0Write_Str(RCV_DATA_BUF);
+			UART0Putch(GSM_MSG_STOP_FLAG);
+			if(TCP_Recieve(RCV_DATA_BUF) == SUCCESS)
+			{
+				//MSG_Deal(RCV_DATA_BUF);
+			}
+		}
 //		else
 //		{
 //			count++;
@@ -94,16 +93,10 @@ int main()
 //		BEE_ON();
 //		delay_nms(1000);
 //		BEE_OFF();
-		if(get_Fre1(&f1) == ERROR)
-		{
-			f1 = 99999;
-		}
-		if(get_Fre2(&f2)== ERROR)
-		{
-			f2 = 99999;
-		}
-		sprintf((char *)ddd,"f1==%u,f2==%u",f1,f2);
-		UART0Write_Str(ddd);
+//	    get_Fre1(&f1);
+//		get_Fre2(&f2);
+//		sprintf((char *)ddd,"f1==%u,f2==%u",f1,f2);
+//		UART0Write_Str(ddd);
 		delay_nms(3000);
 	}
 	return 0;

@@ -115,14 +115,14 @@ uint8_t UART0GetFun(volatile ErrorStatus *count)
 ErrorStatus UART0_Recieve(void)
 {
 	uint16_t i;
-	uint16_t timeout = 6000;
+	uint32_t timeout = 4800000;
 	ErrorStatus err = ERROR;
 	start_rcv_flag = 1;
 	while(start_rcv_flag)
 	{
-		Delaynms(1);
+//		Delaynms(1);
 //		timeout --;
-//		if(timeout <= 0)
+//		if(!timeout)
 //		{
 //		    return ERROR;
 //		}
@@ -180,6 +180,10 @@ void UART0_IRQHandler()
 ErrorStatus get_MSG(char * str)
 {
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
+	RxCounter = 0;
+	RxCounter1 = 0;
+	msg_rcv_flag = 0;
+    msg_rcv_flag = 0;
 	return UART0_Recieve();		
 }
 ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
@@ -214,6 +218,17 @@ ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend)
 				delay_nms(1000);
 				BEE_OFF();
 				break;
+			}else
+			{
+				delay_nms(5000);
+				if((strstr((const char *)RCV_DATA_BUF,str) != NULL))
+			    {
+				    err0 = SUCCESS;
+				    BEE_ON();
+				    delay_nms(1000);
+				    BEE_OFF();
+				    break;
+			    }
 			}
 		}
 		delay_nms(5000);
@@ -221,90 +236,7 @@ ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend)
 	return err0;
 }
 
-/*ErrorStatus deal_string(const char *str,uint16_t str_len)
-{
-	uint8_t data_temp,slen = 0;
-	const char *cp1,*cp2;
-	int i=0;
-	volatile ErrorStatus count = ERROR;
-	cp1 = str;
-	cp2 = str;
-	slen = str_len;
-	while(1)
-	{
-		data_temp = UART0GetFun(&count);
-		if(count == ERROR)
-		{
-			break;
-		}
-		if(data_temp >= 32 && data_temp <=127)
-		{
-			if( *cp1 == data_temp)
-			{
-				
-				cp1++;
-				i++;
-				if( *cp1 == '\0')
-				{
-					break;
-				}
-				if(cp1 == NULL )
-				{
-					return ERROR;
-				}
-			}
-			else
-			{
-				cp1 = cp2;
-				i = 0;
-				if(*cp1 == data_temp)
-				{
-					
-					cp1 ++;
-					i++;
-					if(*cp1 == '\0')
-				    {
-					    break;
-				    }
-					if(cp1 == NULL )
-				    {
-					    return ERROR;
-				    }
-					
-				}
-			}  
-			if(i >= slen)
-			{
-				break;
-			}
-		}
-	}
-	if(i>= slen)
-	{
-		return SUCCESS;
-	}else
-	{
-		return ERROR;
-	}
-}
-ErrorStatus check_ststus(uint8_t *sendstr,char *str,uint16_t str_len,uint16_t resend)
-{
-	int cnt = 0;
-	volatile ErrorStatus err ;
-	UART0Write_Str(sendstr);
-	err = deal_string(str,str_len);
-	while(err == ERROR)
-	{
-		cnt++;
-		if(cnt > resend)
-		{
-			err = ERROR;
-			break;
-		}
-		UART0Write_Str(sendstr);
-		err = deal_string(str,str_len);
-	}
-	return err;
-}*/
+
+
 
 

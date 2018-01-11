@@ -51,18 +51,22 @@ void type_Flow()
 void MSG_Build(uint8_t *sendStr)
 {
 	uint16_t len;
-	char temp[20];
+	char temp[50];
 	volatile uint32_t tds1 = 0,tds2 = 0;
 	get_TDS(&tds1,&tds2);
-//	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.IMEI[0]);
-//    len+=sprintf((char *)temp,"\"CMD\":\"01\",");
-//	strcat((char *)sendStr,temp);
-//	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
-//	strcat((char *)sendStr,temp);
-//	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
-//	strcat((char *)sendStr,temp);
-//	len+=sprintf((char *)temp,"\"TDS1\":%03u,\"TDS2\":%03u,\"F\":%6u}",tds1,tds2,EPROM.RunFlow);
-//	strcat((char *)sendStr,temp);
+	if(EPROM.ServerType != '0' || EPROM.ServerType != '1')
+	{
+		EPROM.ServerType = '0';
+	}
+	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.IMEI[0]);
+    len+=sprintf((char *)temp,"\"CMD\":\"01\",");
+	strcat((char *)sendStr,temp);
+	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
+	strcat((char *)sendStr,temp);
+	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
+	strcat((char *)sendStr,temp);
+	len+=sprintf((char *)temp,"\"TDS1\":%03u,\"TDS2\":%03u,\"F\":%6u}",tds1,tds2,EPROM.RunFlow);
+	strcat((char *)sendStr,temp);
 }
 
 ErrorStatus MSG_Deal(uint8_t *rcv)
