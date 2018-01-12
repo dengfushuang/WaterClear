@@ -1,10 +1,20 @@
 #include "uart.h"
+
+uint8_t RCV_DATA_BUF[RCV_BUF_LEN];
+uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
+
 extern volatile uint8_t sys_CLK;
 volatile uint8_t rcvflag = 1;
 volatile uint8_t start_rcv_flag = 1;
 volatile uint8_t end_rcv_flag = 1;
-volatile uint8_t msg_rcv_flag = 0;
+volatile uint8_t msg_rcv_flag = 1;
 volatile uint8_t RxCounter = 0,RxCounter1 = 0;
+/*********************************************************************************************************
+** 函数名称: UART0Init
+** 功能描述: UART0初始化
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 uint8_t UART0Init(void)
 {
 	GPIO_InitSettingType g;
@@ -41,7 +51,13 @@ uint8_t UART0Init(void)
 	UART0_TxEnable();
 	return 1;
 }
-void clear_Buffer(void)
+/*********************************************************************************************************
+** 函数名称: clear_Buffer
+** 功能描述: 清除接收缓存
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
+void clear_RCV_Buffer(void)
 {
 	uint16_t i;
 	for( i =0 ; i < (RCV_BUF_LEN-1) ;i++)
@@ -49,12 +65,24 @@ void clear_Buffer(void)
 		RCV_DATA_BUF[i] = 0;
 	}
 }
+/*********************************************************************************************************
+** 函数名称: UART0Putch
+** 功能描述: 串口输出一字节
+** 输　入: Data
+** 输　出: 无
+********************************************************************************************************/
 void UART0Putch(uint8_t Data)
 {
 	while(UART0->TB7.TBFF7 == 1);
 	UART0->TBW.Byte[0] = Data;
 }
 
+/*********************************************************************************************************
+** 函数名称: UART0Put_str
+** 功能描述: 串口输出NByte字节
+** 输　入: 数组Data，长度NByte
+** 输　出: 无
+********************************************************************************************************/
 void UART0Put_str(uint8_t *Data, uint16_t NByte)
 {
     while (NByte-- > 0)
@@ -64,12 +92,18 @@ void UART0Put_str(uint8_t *Data, uint16_t NByte)
 	while(UART0->STA.TXBUSY == 1);
 }
 
+/*********************************************************************************************************
+** 函数名称: UART0Write_Str
+** 功能描述: 串口输出字符串
+** 输　入: 字符串
+** 输　出: 无
+********************************************************************************************************/
 void UART0Write_Str(uint8_t *Data)
 {
 	uint8_t *cp,i;
 	RxCounter = 0;
 	RxCounter1 = 0;
-	msg_rcv_flag = 0;
+	msg_rcv_flag = 1;
 	for( i =0 ; i < (SEND_BUF_LEN-1) ;i++)
 	{
 		SEND_DATA_BUF[i] = 0;
@@ -84,6 +118,12 @@ void UART0Write_Str(uint8_t *Data)
 	while(UART0->STA.TXBUSY == 1);
 }
 
+/*********************************************************************************************************
+** 函数名称: UART0Getch
+** 功能描述: 读取一字节
+** 输　入: 无
+** 输　出: 读取到的数据
+********************************************************************************************************/
 uint8_t UART0Getch(void)
 {
     uint8_t err;
@@ -91,27 +131,12 @@ uint8_t UART0Getch(void)
     return err;
 }
 
-uint8_t UART0GetFun(volatile ErrorStatus *count)
-{
-	uint8_t err,outtime = 0,old_f = 0;
-	while(!UART0->IF.RBIF)
-	{	
-	   if(old_f != sys_CLK)
-	   {
-		   old_f = sys_CLK;
-		   outtime++;
-		   if(outtime >= 5)
-		   {
-			   *count = ERROR;
-			   return 0;
-		   }
-	   }
-	}
-	*count = SUCCESS;
-    err = UART_RecByte(UART0);
-    return err;
-}
-
+/*********************************************************************************************************
+** 函数名称: UART0_Recieve
+** 功能描述:串口接收，
+** 输　入: 无
+** 输　出: 成功SUCCESS,失败ERROR
+********************************************************************************************************/
 ErrorStatus UART0_Recieve(void)
 {
 	uint16_t i;
@@ -120,7 +145,7 @@ ErrorStatus UART0_Recieve(void)
 	start_rcv_flag = 1;
 	while(start_rcv_flag)
 	{
-//		Delaynms(1);
+		/****加入超时处理****/
 //		timeout --;
 //		if(!timeout)
 //		{
@@ -135,6 +160,12 @@ ErrorStatus UART0_Recieve(void)
 	err = SUCCESS;
 	return err;
 }
+/*********************************************************************************************************
+** 函数名称: UART0_IRQHandler
+** 功能描述: 串口中断
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void UART0_IRQHandler()
 {
 	uint8_t temp;
@@ -144,37 +175,34 @@ void UART0_IRQHandler()
 		temp = UART0->RBR.Byte[0];
 	    if(msg_rcv_flag)
 		{
-			if(temp >= 32 && temp <= 127)
-			{
-				RCV_DATA_BUF[RxCounter] = temp;
-			    RxCounter++;
-			}
-		}else
-		{
 			if(temp == SEND_DATA_BUF[RxCounter1])
 			{
 				RxCounter1++;
 				if(SEND_DATA_BUF[RxCounter1] == '\r' || SEND_DATA_BUF[RxCounter1] == '\n' || SEND_DATA_BUF[RxCounter1] == '\0')
 				{
-					msg_rcv_flag = 1;
+					msg_rcv_flag = 0;
 				}
 			}
 			else
 			{
 				RxCounter1 = 0;
 			}
+		}else
+		{
+			if(temp >= 32 && temp <= 127)
+			{
+				RCV_DATA_BUF[RxCounter] = temp;
+			    RxCounter++;
+			}
 		}
-		
-		
-		
 	}
 }
 
 /*********************************************************************************************************
-** 函数名称: deal_string
-** 功能描述: 字符串处理
-** 输　入: buf-数据缓冲区,str-比较字符串,buf_len-缓冲区长度，timeout-超时时间,timeout_fun-超时回调函数；
-** 输　出: 无
+** 函数名称: get_MSG
+** 功能描述: 串口接收用于比较串口是否接受到字符串str;
+** 输　入: 比较字符串str
+** 输　出: 成功SUCCESS,失败ERROR
 ********************************************************************************************************/
 
 ErrorStatus get_MSG(char * str)
@@ -182,10 +210,22 @@ ErrorStatus get_MSG(char * str)
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
 	RxCounter = 0;
 	RxCounter1 = 0;
-	msg_rcv_flag = 0;
-    msg_rcv_flag = 0;
-	return UART0_Recieve();		
+	msg_rcv_flag = 1;
+	start_rcv_flag = 1;
+	while(start_rcv_flag);
+	while(msg_rcv_flag)
+	{
+		/****加入超时处理****/
+		;
+	}
+	return SUCCESS;		
 }
+/*********************************************************************************************************
+** 函数名称: get_String
+** 功能描述: 读取发送sendstr字符串之后返回的信息，返回信息头必须包括sendstr
+** 输　入: 发送信息，重复发送次数
+** 输　出: 无
+********************************************************************************************************/
 ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
 {
 	uint8_t i;
@@ -202,6 +242,12 @@ ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
 	}
 	return err0;
 }
+/*********************************************************************************************************
+** 函数名称: check_ststus
+** 功能描述: 读取发送sendstr字符串之后返回的信息(只包含打印字符)，并比较是否包含str字符串返回信息头必须包括sendstr
+** 输　入: 发送字符串sendstr，比较字符串str，重发次数resend
+** 输　出: 无
+********************************************************************************************************/
 ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend)
 {
 	uint8_t i;
@@ -211,6 +257,7 @@ ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend)
 		UART0Write_Str(sendstr);
 		if(UART0_Recieve() == SUCCESS)
 		{
+			delay_nms(200);
 			if((strstr((const char *)RCV_DATA_BUF,str) != NULL))
 			{
 				err0 = SUCCESS;

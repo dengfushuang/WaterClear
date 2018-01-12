@@ -1,7 +1,14 @@
 #ifndef __UART_H
 #define __UART_H
 #include "user_config.h"
-extern void clear_Buffer(void);
+
+#define RCV_BUF_LEN 120
+#define SEND_BUF_LEN 120
+
+extern uint8_t RCV_DATA_BUF[RCV_BUF_LEN];
+extern uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
+
+extern void clear_RCV_Buffer(void);
 extern uint8_t UART0Init(void);
 extern void UART0Putch(uint8_t Data);       
 extern void UART0Put_str(uint8_t *Data, uint16_t NByte);

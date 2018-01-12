@@ -1,14 +1,14 @@
 #include "pressure.h"
 void pressure_Init()
 {
-//	ADC_InitStruType a;
-//	GPIO_InitSettingType g;
-//	
-//	g.Signal = GPIO_Pin_Signal_Analog;
-//	GPIO_Init(GPIO_Pin_A3,&g);
-//	a.CLKS = ADC_CLKS_PCLK;
-//	a.CLKDIV = ADC_CLKDIV_1_1;
-//	a.VREF_SEL = ADC_VREF_SEL_1_8;
+#ifdef PCB_V1_00
+	GPIO->PADIR.Word = 0X00000018;
+	GPIO->PAINEB.Word = 0xFFFFFFE7;
+ #endif
+#ifdef PCB_V1_01
+	GPIO->PADIR.Word = 0X00000180;
+	GPIO->PAINEB.Word = 0xFFFFEBFF;
+ #endif
 }
 uint32_t get_Pressure()
 {

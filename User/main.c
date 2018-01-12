@@ -1,8 +1,5 @@
 #include "user_config.h"
 
-uint8_t RCV_DATA_BUF[RCV_BUF_LEN];
-uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
-
 EPROM_DATA EPROM;
 void BEE_init()
 {
@@ -17,13 +14,22 @@ void BEE_init()
 }
 void reset()
 {
-	PWRKEY_L;
 	Save_To_EPROM(&EPROM.IMEI[0],9);
-	delay_nms(1500);
-	PWRKEY_H;
+#ifdef PCB_V1_00
+	PWRKEY_L;
 	delay_nms(5000);
 	delay_nms(5000);
 	delay_nms(5000);
+	delay_nms(5000);
+	delay_nms(5000);
+	delay_nms(5000);
+#endif
+#ifdef PCB_V1_01
+	sim800c_OFF();
+	BEE_ON();
+	delay_nms(500);
+	BEE_OFF();
+#endif
 	NVIC_SystemReset();
 }
 void read_All_Flash()
@@ -49,6 +55,7 @@ void write_All_Flash()
 }
 void HardWare_Init()
 {
+	pressure_Init();
 	valve_Init();
 	timer_Init();
 	tds_Init();
@@ -63,33 +70,35 @@ void HardWare_Init()
 int main()
 {
 	uint8_t count = 0;
-	uint32_t f1 = 0,f2 = 0;
-	uint8_t ddd[50] = {0};
 	SystemInit();
 	HardWare_Init();
     while(1)
 	{
-//		GSM_TCPC_INIT();
-//		if(count >5)
-//		{
-//			reset();
-//		}
+		GSM_TCPC_INIT();
+		if(count > 10)
+		{
+			count = 0;
+			reset();
+		}
 		if(GSM_TCP_Connect() == SUCCESS)
 		{
-			MSG_Build(RCV_DATA_BUF);
+			count = 0;
+			clear_RCV_Buffer();
+			msg_Build(RCV_DATA_BUF);
 			UART0Write_Str(RCV_DATA_BUF);
 			UART0Putch(GSM_MSG_STOP_FLAG);
 			if(TCP_Recieve(RCV_DATA_BUF) == SUCCESS)
 			{
-				//MSG_Deal(RCV_DATA_BUF);
+				msg_Deal(RCV_DATA_BUF);
 			}
 		}
-//		else
-//		{
-//			count++;
-//		}
+		else
+		{
+			count++;
+		}
 		/*************具体执行过程*****************/
-		//RunApplication();
+		runApplication();
+	    /****************以下为测试频率的程序***************/
 //		BEE_ON();
 //		delay_nms(1000);
 //		BEE_OFF();

@@ -22,5 +22,4 @@
 ..\output\lib_flashiap.o: ..\User\my_systick.h
 ..\output\lib_flashiap.o: ..\Hardware\GSM\sim800c.h
 ..\output\lib_flashiap.o: ..\User\msgbuild.h
-..\output\lib_flashiap.o: ..\Hardware\Pressure\pressure.h
 ..\output\lib_flashiap.o: ..\Hardware\Flow\water_flow.h

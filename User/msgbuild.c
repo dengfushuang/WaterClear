@@ -1,6 +1,87 @@
 #include "msgbuild.h"
 #define CIRCLE_COUNT 5
-void valve_Init()
+/*********************************************************************************************************
+** 函数名称: pressure_Init
+** 功能描述:压力管脚初始化
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
+void pressure_Init(void)
+{
+#ifdef PCB_V1_00
+	GPIO->PADIR.Word = 0X00000018;
+	GPIO->PAINEB.Word = 0xFFFFFFE7;
+ #endif
+#ifdef PCB_V1_01
+	GPIO->PADIR.Word = 0X00000180;
+	GPIO->PAINEB.Word = 0xFFFFEBFF;
+ #endif
+}
+/*********************************************************************************************************
+** 函数名称: high_Pressure
+** 功能描述:高压开关
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
+uint8_t high_Pressure(void)
+{
+	#ifdef PCB_V1_00
+	   if(GPIO->PAPORT.PORT_3)
+	   {
+		   return 1;
+	   }
+	   else
+	   {
+		   return 0;
+	   }
+	#endif
+    #ifdef PCB_V1_01
+	   if(GPIO->PAPORT.PORT_7)
+	   {
+		   return 1;
+	   }
+	   else
+	   {
+		   return 0;
+	   }
+	#endif
+}
+/*********************************************************************************************************
+** 函数名称: low_Pressure
+** 功能描述:低压开关
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
+uint8_t low_Pressure(void)
+{
+	#ifdef PCB_V1_00
+	   if(GPIO->PAPORT.PORT_4)
+	   {
+		   return 1;
+	   }
+	   else
+	   {
+		   return 0;
+	   }
+	#endif
+    #ifdef PCB_V1_01
+	   if(GPIO->PAPORT.PORT_8)
+	   {
+		   return 1;
+	   }
+	   else
+	   {
+		   return 0;
+	   }
+	#endif
+}
+/*********************************************************************************************************
+** 函数名称: valve_Init
+** 功能描述:阀门管脚初始化
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
+void valve_Init(void)
 {
 	GPIO_InitSettingType g;
 	g.Signal = GPIO_Pin_Signal_Digital;
@@ -15,40 +96,81 @@ void valve_Init()
 	GPIO_WriteBit(GPIO_Pin_A12,0);
 	GPIO_WriteBit(GPIO_Pin_A13,0);
 }
-void open_Water()
+/*********************************************************************************************************
+** 函数名称: valve_ON，valve_OFF
+** 功能描述:阀门开关
+** 输　入: 0全部阀门，1第一个阀门，2第二个阀门，3第三阀门
+** 输　出: 无
+********************************************************************************************************/
+void valve_ON(uint8_t t)
 {
-	GPIO_WriteBit(GPIO_Pin_A11,1);
-	GPIO_WriteBit(GPIO_Pin_A12,1);
-	GPIO_WriteBit(GPIO_Pin_A13,1);
+	switch(t)
+	{
+		case 0:GPIO_WriteBit(GPIO_Pin_A11,1);GPIO_WriteBit(GPIO_Pin_A12,1);GPIO_WriteBit(GPIO_Pin_A13,1);break;
+		case 1:GPIO_WriteBit(GPIO_Pin_A11,1);break;
+		case 2:GPIO_WriteBit(GPIO_Pin_A12,1);break;
+	    case 3:GPIO_WriteBit(GPIO_Pin_A13,1);break;
+		default:break;
+	}
 }
-void close_Water()
+void valve_OFF(uint8_t t)
 {
-	GPIO_WriteBit(GPIO_Pin_A11,0);
-	GPIO_WriteBit(GPIO_Pin_A12,0);
-	GPIO_WriteBit(GPIO_Pin_A13,0);
+	switch(t)
+	{
+		case 0:GPIO_WriteBit(GPIO_Pin_A11,0);GPIO_WriteBit(GPIO_Pin_A12,0);GPIO_WriteBit(GPIO_Pin_A13,0);break;
+		case 1:GPIO_WriteBit(GPIO_Pin_A11,0);break;
+		case 2:GPIO_WriteBit(GPIO_Pin_A12,0);break;
+	    case 3:GPIO_WriteBit(GPIO_Pin_A13,0);break;
+		default:break;
+	}
 }
+/*********************************************************************************************************
+** 函数名称: get_Valve_Status
+** 功能描述:获取阀门状态
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 uint8_t get_Valve_Status()
 {
 	uint8_t ret = 0;
+	ret = (GPIO->PAPORT.Word&0x00003800)>>11;
 	return ret;
 }
+/*********************************************************************************************************
+** 函数名称: type_Time
+** 功能描述:时间服务
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void type_Time()
 {
 	/**************服务时间到**************/
 	if(EPROM.RunTime >= EPROM.ServerTime)
 	{
-		close_Water();
+		valve_OFF(0);
 	}	
 }
+/*********************************************************************************************************
+** 函数名称: type_Flow
+** 功能描述:流量服务
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void type_Flow()
 {
 	/**************服务流量到**************/
 	if(EPROM.RunFlow >= EPROM.ServerFlow)
 	{
-		close_Water();
+		valve_OFF(0);
 	}
 }
-void MSG_Build(uint8_t *sendStr)
+/*********************************************************************************************************
+** 函数名称: msg_Build
+** 功能描述:发送的信息
+** 输　入: 发送数据的数组
+** 输　出: 无
+********************************************************************************************************/
+void msg_Build(uint8_t *sendStr)
 {
 	uint16_t len;
 	char temp[50];
@@ -58,18 +180,24 @@ void MSG_Build(uint8_t *sendStr)
 	{
 		EPROM.ServerType = '0';
 	}
-	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.IMEI[0]);
+	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)EPROM.IMEI);
     len+=sprintf((char *)temp,"\"CMD\":\"01\",");
 	strcat((char *)sendStr,temp);
 	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
 	strcat((char *)sendStr,temp);
 	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
 	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"TDS1\":%03u,\"TDS2\":%03u,\"F\":%6u}",tds1,tds2,EPROM.RunFlow);
+	len+=sprintf((char *)temp,"\"TDS1\":%u,\"TDS2\":%u,\"F\":%u}",tds1,tds2,EPROM.RunFlow);
 	strcat((char *)sendStr,temp);
 }
 
-ErrorStatus MSG_Deal(uint8_t *rcv)
+/*********************************************************************************************************
+** 函数名称: msg_Deal
+** 功能描述:处理接收到的信息
+** 输　入: 接收数据的数组
+** 输　出: 无
+********************************************************************************************************/
+ErrorStatus msg_Deal(uint8_t *rcv)
 {
 	char *cp1,*cp2;
 	uint8_t flag = 0,type = 0,vs = 0,t = 0,ft = 0;
@@ -238,6 +366,7 @@ ErrorStatus MSG_Deal(uint8_t *rcv)
 		Save_To_EPROM((uint32_t *)&EPROM.IMEI[0],(sizeof(EPROM)/sizeof(uint32_t)));
 		delay_nms(10);
 		Save_To_EPROM((uint32_t *)&EPROM.IMEI[0],(sizeof(EPROM)/sizeof(uint32_t)));
+		
 		return SUCCESS;
 	}
 	else
@@ -248,12 +377,13 @@ ErrorStatus MSG_Deal(uint8_t *rcv)
 
 
 
-void RunApplication()
+void runApplication()
 {
 	uint32_t waterflow;
 	uint8_t valve;
 	waterflow = get_Flow();
 	valve = get_Valve_Status();
+	
 	EPROM.RunFlow = EPROM.RunFlow+waterflow;
 	EPROM.ValveStatus = valve;
 }

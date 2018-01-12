@@ -27,7 +27,6 @@ SET CPU_CLOCK=0x00F42400
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\tds.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\uart.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\sim800c.__i"
-"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\pressure.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\water_flow.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmLink" --Via "..\Output\WaterClear.lnp"
 "D:\Keil\ARM\ARMCC\Bin\fromelf.exe" "..\Output\WaterClear.axf" --i32combined --output "..\Output\WaterClear.hex"

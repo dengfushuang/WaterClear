@@ -2,6 +2,12 @@
 #define TIME_OUT 1600000
 volatile uint32_t TDS1count1,TDS2count1,tcount = 0;
 volatile uint32_t tflag = TIME_OUT;
+/*********************************************************************************************************
+** 函数名称: timer_Init
+** 功能描述:16位定时器初始化
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void timer_Init(void)
 {
 	T16Nx_BaseInitStruType T;
@@ -19,21 +25,64 @@ void timer_Init(void)
 	NVIC_Init(NVIC_T16N2_IRQn,NVIC_Priority_1,Enable);
 }
 
+/*********************************************************************************************************
+** 函数名称: tds_Init
+** 功能描述:频率输入口初始化
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void tds_Init(void)
 {
-	GPIO->PADIR.Word = 0X00000142;
-	GPIO->PAINEB.Word = 0xFFFFFEBD;
+   #ifdef PCB_V1_00
+	GPIO->PADIR.Word = 0X00000140;
+	GPIO->PAINEB.Word = 0xFFFFFEBF;
+   #endif
+   #ifdef PCB_V1_01
+	GPIO->PADIR.Word = 0X00000030;
+	GPIO->PADIRBCR.Word = 0X0000000C;
+	GPIO->PAINEB.Word = 0xFFFFFFCF;
+   #endif
 }
+/*********************************************************************************************************
+** 函数名称: get_Fre1、get_Fre2
+** 功能描述: 读取频率
+** 输　入: 无
+** 输　出: 成功SUCCESS,失败ERROR
+********************************************************************************************************/
+void set_TDSEN(uint8_t t)
+{
+    #ifdef PCB_V1_01
+	switch(t)
+	{
+	
+		case 1: GPIO->PADATABCR.Word  = 0x000000010;GPIO->PADATABSR.Word  = 0x000000020;break;
+		case 2: GPIO->PADATABCR.Word  = 0x000000020;GPIO->PADATABSR.Word  = 0x000000010;break;
+		default:break;
+	}
+	#endif
+}
+/*********************************************************************************************************
+** 函数名称: get_Fre1、get_Fre2
+** 功能描述: 读取频率
+** 输　入: 无
+** 输　出: 成功SUCCESS,失败ERROR
+********************************************************************************************************/
 ErrorStatus get_Fre1(volatile uint32_t *ct1)
 {
 	volatile uint32_t t1 = 0,t2 = 0 ;
 	volatile uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
+	set_TDSEN(1);
 	T16Nx_Enable(T16N2);
 	while(tflag)
 	{
+    #ifdef PCB_V1_00
 		t1 = GPIO_ReadBit(GPIO_Pin_A6);
+	#endif
+	#ifdef PCB_V1_01
+		t1 = GPIO_ReadBit(GPIO_Pin_A4);
+	#endif
 	    if(t1 != t2)
 		{
 			tdscount ++;
@@ -49,10 +98,16 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 	volatile uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
+	set_TDSEN(2);
 	T16Nx_Enable(T16N2);
 	while(tflag)
 	{
+	#ifdef PCB_V1_00
 		t1 = GPIO_ReadBit(GPIO_Pin_A8);
+	#endif
+	#ifdef PCB_V1_01
+		t1 = GPIO_ReadBit(GPIO_Pin_A5);
+	#endif
 	    if(t1 != t2)
 		{
 			tdscount ++;
@@ -62,16 +117,30 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 	*ct2 = tdscount;
 	return SUCCESS;	
 }
+/*********************************************************************************************************
+** 函数名称: get_TDS
+** 功能描述:计算水质
+** 输　入: 无
+** 输　出: 成功SUCCESS,失败ERROR
+********************************************************************************************************/
 ErrorStatus get_TDS(volatile uint32_t *tds1,volatile uint32_t *tds2)
 {
 	volatile uint32_t x1 = 0,x2 = 0;
-	/***********计算水质**************/
 	get_Fre1(&x1);
 	get_Fre2(&x2);
+	/***********计算水质**************/
+	
+	
 	*tds1 = x1;
 	*tds2 = x2;
 	return SUCCESS;
 }
+/*********************************************************************************************************
+** 函数名称: UART0_Recieve
+** 功能描述:串口接收，
+** 输　入: 无
+** 输　出: 成功SUCCESS,失败ERROR
+********************************************************************************************************/
 void T16N2_IRQHandler(void)
 {
 	if(T16Nx_GetFlagStatus(T16N2,T16Nx_IT_MAT0) != RESET)

@@ -1,4 +1,7 @@
 #include "sim800c.h"
+uint8_t err_count = 0;
+
+
 /***GSM SMS***/
 uint8_t  GSM_BUF0[] = "AT\r\n";
 uint8_t  GSM_BUF1[] = "AT+CMGF=0\r\n";
@@ -14,6 +17,22 @@ uint8_t  GSM_CIPSRIP[] = "AT+CIPSRIP=1\r\n";
 uint8_t  GSM_CIPSEND[] = "AT+CIPSEND\r\n";
 uint8_t  GSM_CIPCLOSE[] = "AT+CIPCLOSE\r\n";
 uint8_t  GSM_CIPSHUT[] = "AT+CIPSHUT\r\n";
+
+void sim800c_OFF(void)
+{
+#ifdef PCB_V1_01
+	PWRKEY_L;
+	delay_nms(2000);
+	PWRKEY_H;
+	while(!SIM800C_STATUS)
+	{
+		delay_nms(10);
+	}
+	delay_nms(1000);
+	PWRKEY_L;
+	delay_nms(2000);
+#endif
+}
 /*********************************************************************************************************
 ** 函数名称: sim800c_init
 ** 功能描述: GSM模块初始化
@@ -27,22 +46,24 @@ void sim800c_init(uint32_t BPS)
     SIM800C_PWRKEY;
 	delay_nms(100);
 	PWRKEY_H;
-//	while(!GPIO_ReadBit(GPIO_Pin_A8));
+	delay_nms(6000);
+#ifdef PCB_V1_01
+	while(SIM800C_STATUS)
+	{
+		delay_nms(10);
+	}
+#endif
 	UART0Write_Str(GSM_BUF0);
-	delay_nms(1000);
-	get_MSG("Call");
-	get_MSG("SMS");
+	delay_nms(100);
+//	get_MSG("Call");
+//	get_MSG("SMS");
 	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
-	delay_nms(5000);
-	delay_nms(5000);
 	delay_nms(5000);
 	delay_nms(5000);
 	BEE_ON();
 	delay_nms(1000);
 	BEE_OFF();
-	delay_nms(5000);
-	delay_nms(5000);
-	clear_Buffer();
+	clear_RCV_Buffer();
 	UART0Write_Str(GSM_BUF0);
 	delay_nms(1000);
 	delay_nms(100);
@@ -71,6 +92,12 @@ void sim800c_init(uint32_t BPS)
 }
 
 
+/*********************************************************************************************************
+** 函数名称: get_IMEI
+** 功能描述: 获取GSM模块唯一标识符
+** 输　入: 无
+** 输　出: 无
+********************************************************************************************************/
 void get_IMEI(void)
 {
 	uint16_t i;
@@ -117,14 +144,13 @@ void GSM_TCPC_INIT(void)
 	delay_nms(2000);
 }
 /*********************************************************************************************************
-** 函数名称: GSM_TCPC
-** 功能描述: GSM TCP客户端
+** 函数名称: GSM_TCP_Connect
+** 功能描述: GSM TCP连接
 ** 输　入: 无
-** 输　出: 无
+** 输　出: 返回成功SUCCESS或失败ERROR
 ********************************************************************************************************/
 ErrorStatus GSM_TCP_Connect(void)
 {
-	static int err_count = 0;
 	volatile ErrorStatus temp = ERROR;
 	if(check_ststus(GSM_BUF6,"OK",0) == ERROR)
 	{
@@ -137,7 +163,7 @@ ErrorStatus GSM_TCP_Connect(void)
 	if(err_count > 10)
 	{
 		err_count = 0;
-		//NVIC_SystemReset();
+		reset();
 	}
 	if(temp == SUCCESS)
 	{
@@ -169,6 +195,13 @@ ErrorStatus GSM_TCP_Connect(void)
 
 
 
+
+/*********************************************************************************************************
+** 函数名称: TCP_Recieve
+** 功能描述: GSM TCP接收数据
+** 输　入: 无
+** 输　出: 返回成功SUCCESS或失败ERROR
+********************************************************************************************************/
 ErrorStatus TCP_Recieve(uint8_t  rcv[])
 {
 	uint8_t i;

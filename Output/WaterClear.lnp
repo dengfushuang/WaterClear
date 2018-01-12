@@ -23,7 +23,6 @@
 "..\output\tds.o"
 "..\output\uart.o"
 "..\output\sim800c.o"
-"..\output\pressure.o"
 "..\output\water_flow.o"
 --strict --scatter "..\Output\WaterClear.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

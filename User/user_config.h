@@ -29,7 +29,6 @@
 #include "my_systick.h"
 #include "sim800c.h"
 #include "msgbuild.h"
-#include "pressure.h"
 #include "water_flow.h"
 
 
@@ -40,9 +39,7 @@
 
 #define EEPROM_BASE_ADDR EPROM.IMEI[0]
 
-#define RCV_BUF_LEN 120
-#define SEND_BUF_LEN 120
-
+#define PCB_V1_00
 
 
 
@@ -59,8 +56,6 @@ typedef struct{
 }EPROM_DATA;
 
 extern EPROM_DATA EPROM;
-extern uint8_t RCV_DATA_BUF[RCV_BUF_LEN];
-extern uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
 extern void reset(void);
 extern void write_All_Flash(void);
 extern void read_All_Flash(void);

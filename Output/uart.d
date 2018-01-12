@@ -23,5 +23,4 @@
 ..\output\uart.o: ..\User\my_systick.h
 ..\output\uart.o: ..\Hardware\GSM\sim800c.h
 ..\output\uart.o: ..\User\msgbuild.h
-..\output\uart.o: ..\Hardware\Pressure\pressure.h
 ..\output\uart.o: ..\Hardware\Flow\water_flow.h

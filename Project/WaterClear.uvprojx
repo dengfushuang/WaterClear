@@ -511,11 +511,6 @@
               <FilePath>..\Hardware\GSM\sim800c.c</FilePath>
             </File>
             <File>
-              <FileName>pressure.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Hardware\Pressure\pressure.c</FilePath>
-            </File>
-            <File>
               <FileName>water_flow.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Hardware\Flow\water_flow.c</FilePath>
