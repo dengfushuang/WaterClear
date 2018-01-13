@@ -152,7 +152,7 @@ ErrorStatus UART0_Recieve(void)
 //		    return ERROR;
 //		}
 	}
-	while(UART0->STA.RXBUSY);
+    while(UART0->STA.RXBUSY);
 	for(i = RxCounter ; i <(RCV_BUF_LEN -1);i++ )
 	{
 		RCV_DATA_BUF[i] = 0;
@@ -207,6 +207,8 @@ void UART0_IRQHandler()
 
 ErrorStatus get_MSG(char * str)
 {
+	uint32_t tout,tt = 16000000;
+	tout = 10;
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
 	RxCounter = 0;
 	RxCounter1 = 0;
@@ -216,7 +218,17 @@ ErrorStatus get_MSG(char * str)
 	while(msg_rcv_flag)
 	{
 		/****加入超时处理****/
-		;
+		tt = 48000000;
+		tout -- ;
+		if(tout <= 0)
+		{
+		    return ERROR;
+		}
+		while(tt)
+		{
+			tt--;
+		}
+		
 	}
 	return SUCCESS;		
 }
@@ -241,6 +253,24 @@ ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
 		delay_nms(5000);
 	}
 	return err0;
+}
+/*********************************************************************************************************
+** 函数名称: get_NByte
+** 功能描述: 读取发送sendstr字符串之后返回的NByte字节，返回信息头必须包括sendstr
+** 输　入: 发送信息，重复发送次数
+** 输　出: 无
+********************************************************************************************************/
+ErrorStatus get_NByte(uint8_t *sendstr,uint16_t NByte)
+{
+	sprintf((char *)SEND_DATA_BUF,"%s",sendstr);
+	UART0Write_Str(sendstr);
+	RxCounter = 0;
+	RxCounter1 = 0;
+	msg_rcv_flag = 1;
+	start_rcv_flag = 1;
+	while(start_rcv_flag);
+	while(RxCounter < NByte);
+	return SUCCESS;
 }
 /*********************************************************************************************************
 ** 函数名称: check_ststus

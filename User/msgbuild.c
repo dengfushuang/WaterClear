@@ -180,7 +180,7 @@ void msg_Build(uint8_t *sendStr)
 	{
 		EPROM.ServerType = '0';
 	}
-	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)EPROM.IMEI);
+	len = sprintf((char *)sendStr,"{\"SN\":%s,",(char *)EPROM.IMEI);
     len+=sprintf((char *)temp,"\"CMD\":\"01\",");
 	strcat((char *)sendStr,temp);
 	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);

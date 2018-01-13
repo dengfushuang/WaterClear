@@ -46,7 +46,7 @@ void sim800c_init(uint32_t BPS)
     SIM800C_PWRKEY;
 	delay_nms(100);
 	PWRKEY_H;
-	delay_nms(6000);
+	delay_nms(2000);
 #ifdef PCB_V1_01
 	while(SIM800C_STATUS)
 	{
@@ -55,7 +55,8 @@ void sim800c_init(uint32_t BPS)
 #endif
 	UART0Write_Str(GSM_BUF0);
 	delay_nms(100);
-//	get_MSG("Call");
+//	check_ststus(GSM_BUF0,"OK",10);
+//	delay_nms(100);
 //	get_MSG("SMS");
 	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
 	delay_nms(5000);
@@ -100,13 +101,19 @@ void sim800c_init(uint32_t BPS)
 ********************************************************************************************************/
 void get_IMEI(void)
 {
-	uint16_t i;
+	uint16_t i = 0;
 	int temp;
 	uint8_t *cp;
-	temp  = get_String((uint8_t *)"AT+GSN\r\n",5); 
+repare:
+	temp  = get_NByte((uint8_t *)"AT+GSN\r\n",17); 
 	if(temp == ERROR)
 	{
+		if( i > 5)
+		{
 			reset();
+		}
+		i++;
+		goto repare;
 	}
 	i = 0;
 	/***目标信息***/

@@ -16,6 +16,7 @@ extern void UART0Write_Str(uint8_t *Data);
 extern uint8_t UART0Getch(void); 
 extern ErrorStatus get_MSG(char * str);
 extern ErrorStatus get_String(uint8_t *sendstr,uint8_t resend);
+extern ErrorStatus get_NByte(uint8_t *sendstr,uint16_t NByte);
 extern ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend);
 #endif
 

@@ -15,8 +15,9 @@ void BEE_init()
 void reset()
 {
 	Save_To_EPROM(&EPROM.IMEI[0],9);
-#ifdef PCB_V1_00
 	PWRKEY_L;
+#ifdef PCB_V1_00
+
 	delay_nms(5000);
 	delay_nms(5000);
 	delay_nms(5000);
