@@ -4,14 +4,12 @@ volatile uint8_t beeflag = 0;
 volatile static unsigned int temp = 0;
 volatile static unsigned int count = 0;
 volatile static unsigned int rt = 0;
-
-void Delaynms(unsigned int x)
+void Delaynms( int x)
 {
-	unsigned int y;
+	unsigned int y;	
 	while(x--)
 	{
-		for(y=47000;y>0;y--);
-
+		for(y = 5000;y>0;y--);
 	}
 }
 void delay_nms(unsigned int delay)
@@ -37,17 +35,14 @@ void SysTick_IRQHandler()
 	{
 		GPIO->PADATABRR.Word = 0x00000002;
 	}
-	if((count%500) == 0)
+	if(count >= 1000)
 	{
-		if(count >= 1000)
-		{
-			count = 0;
-			EPROM.RunTime ++;
-			sys_CLK = ~sys_CLK;
-		}
+		count = 0;
+		EPROM.EPROM_S.RunTime ++;
+		sys_CLK = ~sys_CLK;
 		WDT_Clear();
-		count ++;
 	}
+
 	else
 	{
 		count ++;

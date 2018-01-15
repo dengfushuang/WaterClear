@@ -145,7 +145,7 @@ uint8_t get_Valve_Status()
 void type_Time()
 {
 	/**************服务时间到**************/
-	if(EPROM.RunTime >= EPROM.ServerTime)
+	if(EPROM.EPROM_S.RunTime >= EPROM.EPROM_S.ServerTime)
 	{
 		valve_OFF(0);
 	}	
@@ -159,7 +159,7 @@ void type_Time()
 void type_Flow()
 {
 	/**************服务流量到**************/
-	if(EPROM.RunFlow >= EPROM.ServerFlow)
+	if(EPROM.EPROM_S.RunFlow >= EPROM.EPROM_S.ServerFlow)
 	{
 		valve_OFF(0);
 	}
@@ -176,18 +176,18 @@ void msg_Build(uint8_t *sendStr)
 	char temp[50];
 	volatile uint32_t tds1 = 0,tds2 = 0;
 	get_TDS(&tds1,&tds2);
-	if(EPROM.ServerType != '0' || EPROM.ServerType != '1')
+	if(EPROM.EPROM_S.ServerType != 0 || EPROM.EPROM_S.ServerType != 1)
 	{
-		EPROM.ServerType = '0';
+		EPROM.EPROM_S.ServerType = 0;
 	}
-	len = sprintf((char *)sendStr,"{\"SN\":%s,",(char *)EPROM.IMEI);
+	len = sprintf((char *)sendStr,"{\"SN\":%s,",(char *)EPROM.EPROM_S.IMEI);
     len+=sprintf((char *)temp,"\"CMD\":\"01\",");
 	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.ServerType);
+	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.EPROM_S.ServerType+'0');
 	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.ValveStatus & 0x02) >> 1)+'0'),((EPROM.ValveStatus & 0x01)+'0'));
+	len+=sprintf((char *)temp,"\"VS\":\"%c%c%c\",",(((EPROM.EPROM_S.ValveStatus & 0x04)>> 2)+'0'),(((EPROM.EPROM_S.ValveStatus & 0x02) >> 1)+'0'),((EPROM.EPROM_S.ValveStatus & 0x01)+'0'));
 	strcat((char *)sendStr,temp);
-	len+=sprintf((char *)temp,"\"TDS1\":%u,\"TDS2\":%u,\"F\":%u}",tds1,tds2,EPROM.RunFlow);
+	len+=sprintf((char *)temp,"\"TDS1\":%u,\"TDS2\":%u,\"F\":%u}",tds1,tds2,EPROM.EPROM_S.RunFlow);
 	strcat((char *)sendStr,temp);
 }
 
@@ -203,9 +203,10 @@ ErrorStatus msg_Deal(uint8_t *rcv)
 	uint8_t flag = 0,type = 0,vs = 0,t = 0,ft = 0;
 	uint32_t sf = 0,rt = 0,et = 0;
 	cp2 = (char *)rcv;
+	WDT_Clear();
 	if((cp1 = strstr(cp2,"TYPE")) != NULL)
 	{
-		type = *(cp1+6);
+		type = *(cp1+6)-'0';
 	}else
 	{
 		flag <<= 1;
@@ -356,17 +357,16 @@ ErrorStatus msg_Deal(uint8_t *rcv)
 	}
 	if(!flag)
 	{
-		EPROM.ServerType = type;
-		EPROM.ValveStatus = vs;
-		EPROM.CircleTime = t;
-		EPROM.ContinuTime = ft;
-		EPROM.ServerFlow = sf;
-		EPROM.RunTime = rt;
-		EPROM.ServerTime  = et;
-		Save_To_EPROM((uint32_t *)&EPROM.IMEI[0],(sizeof(EPROM)/sizeof(uint32_t)));
-		delay_nms(10);
-		Save_To_EPROM((uint32_t *)&EPROM.IMEI[0],(sizeof(EPROM)/sizeof(uint32_t)));
-		
+		EPROM.EPROM_S.ServerType = type&0x000000FF;
+		EPROM.EPROM_S.ValveStatus = vs&0x000000FF;
+		EPROM.EPROM_S.CircleTime = t&0x000000FF;
+		EPROM.EPROM_S.ContinuTime = ft&0x000000FF;
+		EPROM.EPROM_S.ServerFlow = sf;
+		EPROM.EPROM_S.RunTime = rt;
+		EPROM.EPROM_S.ServerTime  = et;
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		delay_nms(70);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 		return SUCCESS;
 	}
 	else
@@ -383,7 +383,6 @@ void runApplication()
 	uint8_t valve;
 	waterflow = get_Flow();
 	valve = get_Valve_Status();
-	
-	EPROM.RunFlow = EPROM.RunFlow+waterflow;
-	EPROM.ValveStatus = valve;
+	EPROM.EPROM_S.RunFlow = EPROM.EPROM_S.RunFlow+waterflow;
+	EPROM.EPROM_S.ValveStatus = valve;
 }

@@ -38,27 +38,31 @@
 
 
 
-#define START_ADDR 0x00008BFF
+#define START_ADDR 0x00008800
 #define PAGE_ADDR (START_ADDR/1024)
 
-#define EEPROM_BASE_ADDR EPROM.IMEI[0]
-
+#define EEPROM_BASE_ADDR EPROM.ARRY[0]
 
 
 
 typedef struct{
-    uint8_t IMEI[16];
 	uint32_t ServerFlow;
 	uint32_t RunFlow;
 	uint32_t ServerTime;
 	uint32_t RunTime;
-    uint8_t  ServerType;
-    uint8_t  ValveStatus;
-	uint8_t  CircleTime;
-	uint8_t  ContinuTime;
+    uint32_t  ServerType;
+    uint32_t  ValveStatus;
+	uint32_t  CircleTime;
+	uint32_t  ContinuTime;
+    uint8_t IMEI[16];
 }EPROM_DATA;
 
-extern EPROM_DATA EPROM;
+typedef union{
+    EPROM_DATA EPROM_S;
+	uint32_t ARRY[12];
+}EEPROM_DATA;
+
+extern EEPROM_DATA EPROM;
 extern void reset(void);
 extern void write_All_Flash(void);
 extern void read_All_Flash(void);

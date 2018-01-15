@@ -10,6 +10,12 @@
  **********************************************************/
 #include "lib_flashiap.h"
 #include "user_config.h"
+
+#define ERASE_ENTRY  0x10000004
+#define WORDPRO  0x10000008
+#define WORDSPRO  0x10000000
+
+
 /*************************************
   º¯ÊýÃû£ºIAP_Unlock
   Ãè  Êö£º½âËøIAP
@@ -69,10 +75,8 @@ ErrorStatus IAP_ErasePage(uint8_t Page_Addr)
 		__set_PRIMASK(tmp);
 		return ERROR;
 	}
-
 	IAP->ADDR.IAPPA = Page_Addr;
 	IAP->TRIG.Word  = 0x00005EA1;
-
 	for (i = 0; i < 0xffff; ++i) {
 		if (IAP->STA.BSY == 0)
 			break;
@@ -200,18 +204,77 @@ ErrorStatus IAP_Read(uint32_t *Ram_Addr, uint32_t Flash_Addr, uint8_t Len)
 
 	return SUCCESS;
 }
+
 ErrorStatus Save_To_EPROM(void* data,uint16_t count)
 {
     uint16_t address_temp,i;
 	uint32_t *cp;
-	volatile  ErrorStatus err = ERROR;
+	uint32_t tmp;
+	
 	cp = (uint32_t *)data;
-    address_temp = (uint8_t* )data  - &EEPROM_BASE_ADDR;
+    address_temp = (unsigned int* )data  - &EEPROM_BASE_ADDR;
     address_temp  = address_temp/4;
-	for(i = 0; i < count ; i++,cp++)
+	for(i = 0 ; i < count ; )
 	{
-		err = IAP_WriteWord(address_temp+i,PAGE_ADDR,*cp);
+		if(IAP_WriteWord(address_temp+i,PAGE_ADDR,*cp) == SUCCESS)
+		{
+			i++;
+			cp++;
+		}
 	}
-	return err;
+	return SUCCESS;
 }
+
+/*ErrorStatus Save_To_EPROM(void* data,uint16_t count)
+{
+    uint16_t address_temp,i;
+	uint32_t *cp;
+	uint32_t tmp;
+	
+	cp = (uint32_t *)data;
+    address_temp = (uint8_t* )data  - &EPROM.IMEI[0];
+    address_temp  = address_temp/4;
+	
+	IAP->ADDR.IAPPA = PAGE_ADDR;
+	IAP->ADDR.IAPCA = address_temp;
+
+	tmp = __get_PRIMASK();
+	__asm__("CPSID i");
+
+	if ((IAP_Unlock()) == ERROR)
+		goto end;
+	for(i = 0 ; i < count ; i++)
+	{
+		IAP->DATA.Word  = *cp;
+	    IAP->TRIG.Word  = 0x00005DA2;
+		for (i = 0; i < 0xffff; ++i) {
+		if (IAP->STA.BSY == 0)
+			break;
+		}
+
+		if (i == 0xffff)
+			return ERROR;
+
+		for (i = 0; i < 0xffff; ++i) {
+			if (IAP->STA.PROG_END)
+				break;
+		}
+
+		if (i == 0xffff){
+			return ERROR;
+		}
+		cp++;
+	}
+	if ((IAP_WriteEnd()) == ERROR)
+		goto end;
+
+	__set_PRIMASK(tmp);
+	return SUCCESS;
+	
+	end:
+	__set_PRIMASK(tmp);
+	__ASM("CPSIE i");
+	return ERROR;
+	
+}*/
 

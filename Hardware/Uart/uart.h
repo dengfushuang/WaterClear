@@ -2,7 +2,7 @@
 #define __UART_H
 #include "user_config.h"
 
-#define RCV_BUF_LEN 120
+#define RCV_BUF_LEN 200
 #define SEND_BUF_LEN 120
 
 extern uint8_t RCV_DATA_BUF[RCV_BUF_LEN];

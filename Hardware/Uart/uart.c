@@ -6,7 +6,7 @@ uint8_t SEND_DATA_BUF[SEND_BUF_LEN];
 extern volatile uint8_t sys_CLK;
 volatile uint8_t rcvflag = 1;
 volatile uint8_t start_rcv_flag = 1;
-volatile uint8_t end_rcv_flag = 1;
+volatile uint8_t end_msg_flag = 1;
 volatile uint8_t msg_rcv_flag = 1;
 volatile uint8_t RxCounter = 0,RxCounter1 = 0;
 /*********************************************************************************************************
@@ -140,17 +140,18 @@ uint8_t UART0Getch(void)
 ErrorStatus UART0_Recieve(void)
 {
 	uint16_t i;
-	uint32_t timeout = 4800000;
+	uint32_t timeout = 4000;
 	ErrorStatus err = ERROR;
 	start_rcv_flag = 1;
 	while(start_rcv_flag)
 	{
 		/****加入超时处理****/
-//		timeout --;
-//		if(!timeout)
-//		{
-//		    return ERROR;
-//		}
+		Delaynms(1);
+		timeout --;
+		if(!timeout)
+		{
+		    return ERROR;
+		}
 	}
     while(UART0->STA.RXBUSY);
 	for(i = RxCounter ; i <(RCV_BUF_LEN -1);i++ )
@@ -193,6 +194,10 @@ void UART0_IRQHandler()
 			{
 				RCV_DATA_BUF[RxCounter] = temp;
 			    RxCounter++;
+				if(temp == '}')
+				{
+					end_msg_flag = 0;
+				}
 			}
 		}
 	}
@@ -207,29 +212,36 @@ void UART0_IRQHandler()
 
 ErrorStatus get_MSG(char * str)
 {
-	uint32_t tout,tt = 16000000;
-	tout = 10;
+	uint32_t timeout = 10;
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
 	RxCounter = 0;
 	RxCounter1 = 0;
 	msg_rcv_flag = 1;
 	start_rcv_flag = 1;
-	while(start_rcv_flag);
-	while(msg_rcv_flag)
+	end_msg_flag = 1;
+	while(start_rcv_flag)
 	{
 		/****加入超时处理****/
-		tt = 48000000;
-		tout -- ;
-		if(tout <= 0)
+		delay_nms(500);
+		WDT_Clear();
+		timeout --;
+		if(!timeout)
 		{
 		    return ERROR;
 		}
-		while(tt)
-		{
-			tt--;
-		}
-		
 	}
+	while(end_msg_flag)
+	{
+		/****加入超时处理****/
+		delay_nms(500);
+		WDT_Clear();
+		timeout --;
+		if(!timeout)
+		{
+		    return ERROR;
+		}
+	}
+	delay_nms(100);
 	return SUCCESS;		
 }
 /*********************************************************************************************************

@@ -5,5 +5,5 @@
 void BEE_ON(void);
 void BEE_OFF(void);
 extern void delay_nms(unsigned int delay);
-extern void Delaynms(unsigned int x);
+extern void Delaynms( int x);
 #endif

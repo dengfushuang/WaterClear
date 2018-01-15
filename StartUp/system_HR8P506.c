@@ -36,11 +36,11 @@ void SystemInit(void)
     SysTick_Enable();
 	
 	WDT_RegUnLock();
-	wdt.WDT_Tms = 900;
+	wdt.WDT_Tms = 1300;
 	wdt.WDT_IE = Disable;
 	wdt.WDT_Rst = Enable;
 	wdt.WDT_Clock = WDT_CLOCK_PCLK;
 	WDT_Init(&wdt);
-	WDT_Enable();
+	//WDT_Enable();
 }
 
