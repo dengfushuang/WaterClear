@@ -209,7 +209,6 @@ ErrorStatus Save_To_EPROM(void* data,uint16_t count)
 {
     uint16_t address_temp,i;
 	uint32_t *cp;
-	uint32_t tmp;
 	
 	cp = (uint32_t *)data;
     address_temp = (unsigned int* )data  - &EEPROM_BASE_ADDR;

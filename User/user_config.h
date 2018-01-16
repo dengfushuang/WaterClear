@@ -43,7 +43,7 @@
 
 #define EEPROM_BASE_ADDR EPROM.ARRY[0]
 
-
+#define DEBUG_T 0
 
 typedef struct{
 	uint32_t ServerFlow;

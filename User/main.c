@@ -14,7 +14,9 @@ void BEE_init()
 }
 void reset()
 {
-	Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM)/sizeof(uint32_t)));
+	Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+	delay_nms(200);
+	Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 	PWRKEY_L;
 #ifdef PCB_V1_00
 
@@ -64,84 +66,72 @@ void HardWare_Init()
 	UART0Init();
 	delay_nms(1000);
 	BEE_ON();
-	delay_nms(500);
+	delay_nms(2000);
 	BEE_OFF();
-    SIM800C_PWRKEY;
-	delay_nms(100);
-	PWRKEY_L;	
-//	sim800c_init(115200);
+//    SIM800C_PWRKEY;
+//	delay_nms(100);
+//	PWRKEY_L;	
+	sim800c_init(115200);
 }
 int main()
 {
-	uint8_t count = 0,tt[5];
+	uint8_t err_count = 0,tt[20];
 	SystemInit();
-	HardWare_Init();
 	read_All_Flash();
+	HardWare_Init();
     while(1)
 	{
-//		GSM_TCPC_INIT();
-//		if(count > 10)
-//		{
-//			count = 0;
-//			reset();
-//		}
-//		if(GSM_TCP_Connect() == SUCCESS)
-//		{
-//			count = 0;
-    		clear_RCV_Buffer();
-//			msg_Build(RCV_DATA_BUF);
-//			UART0Write_Str(RCV_DATA_BUF);
-//			UART0Putch(GSM_MSG_STOP_FLAG);
-		    BEE_OFF();
+		if(seconds > EPROM.EPROM_S.CircleTime )
+		{
+			seconds = 0;
+		#if DEBUG_T
+			clear_RCV_Buffer();
+			msg_Build(RCV_DATA_BUF);
+			UART0Write_Str(RCV_DATA_BUF);
+			UART0Putch(GSM_MSG_STOP_FLAG);
+			clear_RCV_Buffer();
 			if(TCP_Recieve(RCV_DATA_BUF) == SUCCESS)
 			{
 				msg_Deal(RCV_DATA_BUF);
 			}
-			
-//		}
-//		else
-//		{
-//			count++;
-//		}
-//		/*************具体执行过程*****************/
-		//runApplication();
-	    /****************以下为测试频率的程序***************/
-		if(EPROM.EPROM_S.ValveStatus & 0x04)
-		{
-			valve_ON(1);
-		}
-		else
-		{
-			valve_OFF(1);
-		}
-		if(EPROM.EPROM_S.ValveStatus & 0x02)
-		{
-			valve_ON(2);
-		}
-		else
-		{
-			valve_OFF(2);
-		}
-		if(EPROM.EPROM_S.ValveStatus & 0x01)
-		{
-			valve_ON(3);
-		}
-		else
-		{
-			valve_OFF(3);
-		}
-		UART0Write_Str((unsigned char *)"msg===\r\n");
-		delay_nms(500);
-		UART0Write_Str(RCV_DATA_BUF);
-		Delaynms(3000);
-		BEE_ON();
-		Delaynms(1000);
-		
-//	    get_Fre1(&f1);
-//		get_Fre2(&f2);
-//		sprintf((char *)ddd,"f1==%u,f2==%u",f1,f2);
-//		UART0Write_Str(ddd);
-//		delay_nms(3000);
+			else
+			{
+				err_count ++;
+			}
+		#else
+			do{
+				GSM_TCPC_INIT();
+				if(GSM_TCP_Connect() == SUCCESS)
+				{
+					err_count = 0;
+					clear_RCV_Buffer();
+					msg_Build(RCV_DATA_BUF);
+					if(TCP_Recieve() == SUCCESS)
+					{
+						msg_Deal(RCV_DATA_BUF);
+					}
+					else
+					{
+						err_count ++;
+					}
+				}
+				else
+				{
+					err_count++;
+				}
+				if(err_count > 5)
+				{
+					reset();
+				}
+			}while(err_count);
+		#endif
+		}	
+		/*************具体执行过程*****************/
+		runApplication();
+		control_Function();
+		delay_nms(1000);
+		sprintf((char *)tt,"%u",EPROM.EPROM_S.RunTime);
+		UART0Write_Str(tt);
 	}
 	return 0;
 }

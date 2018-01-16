@@ -1,9 +1,10 @@
 #include "my_systick.h"
-volatile uint8_t sys_CLK = 0;
+
+volatile uint32_t timeout = 0;
+volatile uint32_t seconds = 0,minutes = 0;
 volatile uint8_t beeflag = 0;
-volatile static unsigned int temp = 0;
-volatile static unsigned int count = 0;
-volatile static unsigned int rt = 0;
+volatile static unsigned int delay_temp = 0;
+volatile static unsigned int count = 1;
 void Delaynms( int x)
 {
 	unsigned int y;	
@@ -14,8 +15,8 @@ void Delaynms( int x)
 }
 void delay_nms(unsigned int delay)
 {
-	temp = delay;
-	while(temp);
+	delay_temp = delay;
+	while(delay_temp);
 }
 void BEE_ON()
 {
@@ -27,22 +28,34 @@ void BEE_OFF()
 }
 void SysTick_IRQHandler()
 {
-	if(temp != 0)
+	if(timeout!=0)
 	{
-		temp--;
+		timeout--;
+	}
+	if(delay_temp != 0)
+	{
+		delay_temp--;
 	}
 	if(beeflag == 1)
 	{
 		GPIO->PADATABRR.Word = 0x00000002;
 	}
+	if((count%10) == 0)
+	{
+		
+	}
 	if(count >= 1000)
 	{
-		count = 0;
+		count = 1;
 		EPROM.EPROM_S.RunTime ++;
-		sys_CLK = ~sys_CLK;
+		seconds++;
+		if(seconds %59 == 0)
+		{
+			minutes++;
+//			seconds = 0;
+		}
 		WDT_Clear();
 	}
-
 	else
 	{
 		count ++;

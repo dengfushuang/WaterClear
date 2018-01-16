@@ -9,12 +9,13 @@
 void pressure_Init(void)
 {
 #ifdef PCB_V1_00
-	GPIO->PADIR.Word = 0X00000018;
-	GPIO->PAINEB.Word = 0xFFFFFFE7;
- #endif
+	GPIO->PADATA.Word = 0x00000018;
+	GPIO->PAINEB.Word &= 0xFFFFFFE7;
+	GPIO->PADIR.Word  = 0X00000018;
+#endif
 #ifdef PCB_V1_01
 	GPIO->PADIR.Word = 0X00000180;
-	GPIO->PAINEB.Word = 0xFFFFEBFF;
+	GPIO->PAINEB.Word = 0xFFFFE7FF;
  #endif
 }
 /*********************************************************************************************************
@@ -26,7 +27,7 @@ void pressure_Init(void)
 uint8_t high_Pressure(void)
 {
 	#ifdef PCB_V1_00
-	   if(GPIO->PAPORT.PORT_3)
+	   if(GPIO_ReadBit(GPIO_Pin_A3))
 	   {
 		   return 1;
 	   }
@@ -180,7 +181,7 @@ void msg_Build(uint8_t *sendStr)
 	{
 		EPROM.EPROM_S.ServerType = 0;
 	}
-	len = sprintf((char *)sendStr,"{\"SN\":%s,",(char *)EPROM.EPROM_S.IMEI);
+	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",","12345678900000");
     len+=sprintf((char *)temp,"\"CMD\":\"01\",");
 	strcat((char *)sendStr,temp);
 	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.EPROM_S.ServerType+'0');
@@ -357,6 +358,7 @@ ErrorStatus msg_Deal(uint8_t *rcv)
 	}
 	if(!flag)
 	{
+		//sprintf(&EPROM.EPROM_S.IMEI[0],"123456789abcdef");
 		EPROM.EPROM_S.ServerType = type&0x000000FF;
 		EPROM.EPROM_S.ValveStatus = vs&0x000000FF;
 		EPROM.EPROM_S.CircleTime = t&0x000000FF;
@@ -380,9 +382,75 @@ ErrorStatus msg_Deal(uint8_t *rcv)
 void runApplication()
 {
 	uint32_t waterflow;
-	uint8_t valve;
+	
+	if(EPROM.EPROM_S.ValveStatus & 0x04)
+	{
+		valve_ON(1);
+	}
+	else
+	{
+		valve_OFF(1);
+	}
+	if(EPROM.EPROM_S.ValveStatus & 0x02)
+	{
+		valve_ON(2);
+	}
+	else
+	{
+		valve_OFF(2);
+	}
+	if(EPROM.EPROM_S.ValveStatus & 0x01)
+	{
+		valve_ON(3);
+	}
+	else
+	{
+		valve_OFF(3);
+	}
+	if(EPROM.EPROM_S.ServerType == 1)
+	{
+		type_Flow();
+	}
+	if(EPROM.EPROM_S.ServerType == 0)
+	{
+		type_Time();
+	}
 	waterflow = get_Flow();
-	valve = get_Valve_Status();
 	EPROM.EPROM_S.RunFlow = EPROM.EPROM_S.RunFlow+waterflow;
-	EPROM.EPROM_S.ValveStatus = valve;
+}
+void control_Function(void)
+{
+	static uint8_t cc= 0;
+	if(low_Pressure())
+	{
+		valve_OFF(1);
+		valve_OFF(2);
+		valve_OFF(3);
+        BEE_OFF();
+	}else
+	{
+		BEE_ON();
+		if(high_Pressure())
+		{
+			BEE_OFF();
+			valve_OFF(1);
+			delay_nms(1000);
+			valve_OFF(2);
+			valve_OFF(3);
+			cc = 0;
+		}else
+		{
+			valve_ON(3);
+			valve_ON(1);
+			if(cc > 3)
+			{
+				valve_OFF(3);
+				valve_ON(2);
+			}
+			else
+			{
+				cc++;
+			}
+		}
+	}
 }

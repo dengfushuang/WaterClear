@@ -145,7 +145,40 @@
           <Name>-U -O14 -S0 -C0 -P00 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0HR8P506 -FS00 -FL09000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>85</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>7012</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>E:\Work\鍑€姘村櫒\WaterClear\User\msgbuild.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\WaterClear\../User/msgbuild.c\85</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>66</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>7000</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>E:\Work\鍑€姘村櫒\WaterClear\User\msgbuild.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\WaterClear\../User/msgbuild.c\66</Expression>
+        </Bp>
+      </Breakpoint>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
