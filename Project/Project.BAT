@@ -22,6 +22,7 @@ SET CPU_CLOCK=0x00F42400
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\main.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\my_systick.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\msgbuild.__i"
+"D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\my_task.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmAsm" --Via "..\output\startup_hr8p506._ia"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\system_hr8p506.__i"
 "D:\Keil\ARM\ARMCC\Bin\ArmCC" --Via "..\output\tds.__i"

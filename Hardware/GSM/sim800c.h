@@ -25,6 +25,7 @@ void sim800c_OFF(void);
 void sim800c_init(uint32_t BPS);
 void get_IMEI(void);
 void GSM_TCPC_INIT(void);
+ErrorStatus TCP_Connected(void);
 ErrorStatus GSM_TCP_Connect(void);
 void TCP_send(uint32_t serialnum);
 ErrorStatus TCP_Recieve(void);

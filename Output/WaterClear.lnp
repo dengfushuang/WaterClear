@@ -18,6 +18,7 @@
 "..\output\main.o"
 "..\output\my_systick.o"
 "..\output\msgbuild.o"
+"..\output\my_task.o"
 "..\output\startup_hr8p506.o"
 "..\output\system_hr8p506.o"
 "..\output\tds.o"

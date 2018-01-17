@@ -46,9 +46,9 @@ void sim800c_init(uint32_t BPS)
 	/***SIM800C电源控制脚初始化***/
 	strcat((char *)CIPSTART,(char *)serverIP);
     SIM800C_PWRKEY;
-	delay_nms(100);
+	delay_nms(200);
 	PWRKEY_H;
-	delay_nms(6000);
+	delay_nms(3000);
 #ifdef PCB_V1_01
 	while(SIM800C_STATUS)
 	{
@@ -57,9 +57,6 @@ void sim800c_init(uint32_t BPS)
 #endif
 	UART0Write_Str(GSM_BUF0);
 	delay_nms(100);
-//	check_ststus(GSM_BUF0,"OK",10);
-//	delay_nms(100);
-//	get_MSG("SMS");
 	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
 	delay_nms(5000);
 	delay_nms(5000);
@@ -72,7 +69,7 @@ void sim800c_init(uint32_t BPS)
 	delay_nms(100);
 	if(check_ststus(GSM_BUF1,"OK",10,5000) == ERROR)
 	{
-		;
+		reset();
 	}
 	if(check_ststus((uint8_t *)"AT+CMGDA=6\r\n","OK",10,5000) == ERROR)
 	{
@@ -80,11 +77,11 @@ void sim800c_init(uint32_t BPS)
 	}
 	if(check_ststus(GSM_BUF5,"OK",10,5000) == ERROR)
 	{
-		;
+        ;
 	}
 	if(check_ststus((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n","OK",2,5000) == ERROR)
 	{
-		;
+        ;
 	}
 	delay_nms(5000); 
 	delay_nms(3000);
@@ -109,7 +106,7 @@ void get_IMEI(void)
 	temp  = get_NByte((uint8_t *)"AT+GSN\r\n",17); 
 	if(temp == ERROR)
 	{
-			reset();
+		reset();
 	}
 	delay_nms(200);
 	i = 0;
@@ -148,6 +145,14 @@ void GSM_TCPC_INIT(void)
 	UART0Write_Str(GSM_CIPSRIP);
 	delay_nms(2000);
 }
+ErrorStatus TCP_Connected(void)
+{
+	if(check_ststus((uint8_t *)"AT+CIPSTATUS\r\n","CONNECT OK",0,5000) == SUCCESS)
+	{
+		return SUCCESS;
+	}
+	return ERROR;
+}
 /*********************************************************************************************************
 ** 函数名称: GSM_TCP_Connect
 ** 功能描述: GSM TCP连接
@@ -165,10 +170,6 @@ ErrorStatus GSM_TCP_Connect(void)
 	{
 	    err_count ++;
 	}
-//	if((temp = check_ststus(GSM_BUF8,"",0,5000)) == ERROR)
-//	{
-//	    err_count ++;
-//	}
 	if(err_count > 10)
 	{
 		err_count = 0;

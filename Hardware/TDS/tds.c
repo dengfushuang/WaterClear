@@ -1,4 +1,5 @@
 #include "tds.h"
+#include "math.h"
 #define TIME_OUT 1600000
 volatile uint32_t TDS1count1,TDS2count1,tcount = 0;
 volatile uint32_t tflag = TIME_OUT;
@@ -8,7 +9,7 @@ volatile uint32_t tflag = TIME_OUT;
 ** 输　入: 无
 ** 输　出: 无
 ********************************************************************************************************/
-void timer_Init(void)
+void tds_Timer_Init(void)
 {
 	T16Nx_BaseInitStruType T;
 	
@@ -23,19 +24,6 @@ void timer_Init(void)
 	T16Nx_SetMAT0(T16N2,48000);
 	T16Nx_ITConfig(T16N2,T16Nx_IT_MAT0,Enable);
 	NVIC_Init(NVIC_T16N2_IRQn,NVIC_Priority_1,Enable);
-	
-	T.T16Nx_ClkS  = T16Nx_ClkS_PCLK;
-	T.T16Nx_EDGE = T16Nx_EDGE_Rise;
-	T.T16Nx_Mode = T16Nx_Mode_TC0;
-	T.T16Nx_PREMAT = 1;
-	T.T16Nx_SYNC = Disable;
-	T16Nx_BaseInit(T16N1,&T);
-	T16Nx_MAT0ITConfig(T16N1,T16Nx_Clr_Int);
-	T16Nx_SetCNT0(T16N1,0);
-	T16Nx_SetMAT0(T16N1,48000);
-	T16Nx_ITConfig(T16N1,T16Nx_IT_MAT0,Enable);
-	NVIC_Init(NVIC_T16N1_IRQn,NVIC_Priority_2,Enable);
-	T16Nx_Enable(T16N1);
 	
 }
 
@@ -56,6 +44,7 @@ void tds_Init(void)
 	GPIO->PADIRBCR.Word = 0X0000000C;
 	GPIO->PAINEB.Word = 0xFFFFFFCF;
    #endif
+	tds_Timer_Init();
 }
 /*********************************************************************************************************
 ** 函数名称: get_Fre1、get_Fre2
@@ -109,7 +98,7 @@ ErrorStatus get_Fre1(volatile uint32_t *ct1)
 ErrorStatus get_Fre2(volatile uint32_t *ct2)
 {
 	volatile uint32_t t1 = 0,t2 = 0;
-	volatile uint32_t tdscount = 0;
+	uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
 	set_TDSEN(2);
@@ -117,7 +106,7 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 	while(tflag)
 	{
 	#ifdef PCB_V1_00
-		t1 = GPIO_ReadBit(GPIO_Pin_A8);
+		t1 = (GPIO->PAPORT.Word>>8)&0x01;
 	#endif
 	#ifdef PCB_V1_01
 		t1 = GPIO_ReadBit(GPIO_Pin_A5);
@@ -140,13 +129,21 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 ErrorStatus get_TDS(volatile uint32_t *tds1,volatile uint32_t *tds2)
 {
 	volatile uint32_t x1 = 0,x2 = 0;
+	double R = 0.0,F = 0.0,a = 0.0;
 	get_Fre1(&x1);
 	get_Fre2(&x2);
 	/***********计算水质**************/
+    F = x1/2;
+	a = 4.85-log10(F);
+	R = pow(10,a);
+	a = 3600.0/R;
+	*tds1 = (uint32_t)a;
 	
-	
-	*tds1 = x1;
-	*tds2 = x2;
+	F = x2/2;
+	a = 4.85-log10(F);
+	R = pow(10,a);
+	a = 3600.0/R;
+	*tds2 = a;
 	return SUCCESS;
 }
 /*********************************************************************************************************
@@ -170,17 +167,3 @@ void T16N2_IRQHandler(void)
 }
 
 
-void T16N1_IRQHandler(void)
-{
-	static uint32_t cc = 0;
-	if(T16Nx_GetFlagStatus(T16N1,T16Nx_IT_MAT0) != RESET)
-	{
-		T16Nx_ClearITPendingBit(T16N1,T16Nx_IT_MAT0);
-		cc++;
-		if(cc >= 999)
-		{
-			cc = 0;
-			control_Function();
-		}
-	}
-}

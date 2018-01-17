@@ -62,6 +62,8 @@ typedef union{
 	uint32_t ARRY[12];
 }EEPROM_DATA;
 
+extern volatile uint8_t task_flag;
+extern void my_Task_Timer_Init(void);
 extern EEPROM_DATA EPROM;
 extern void reset(void);
 extern void write_All_Flash(void);

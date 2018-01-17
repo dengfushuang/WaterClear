@@ -1,7 +1,9 @@
 #include "my_systick.h"
 
+volatile uint32_t test_second = 0;
+
 volatile uint32_t timeout = 0;
-volatile uint32_t seconds = 0,minutes = 0;
+volatile uint32_t seconds = 0,minutes = 1;
 volatile uint8_t beeflag = 0;
 volatile static unsigned int delay_temp = 0;
 volatile static unsigned int count = 1;
@@ -48,11 +50,12 @@ void SysTick_IRQHandler()
 	{
 		count = 1;
 		EPROM.EPROM_S.RunTime ++;
+		test_second++;
 		seconds++;
-		if(seconds %59 == 0)
+		if(seconds >=59)
 		{
 			minutes++;
-//			seconds = 0;
+			seconds = 0;
 		}
 		WDT_Clear();
 	}

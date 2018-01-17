@@ -1,5 +1,8 @@
 #include "msgbuild.h"
 #define CIRCLE_COUNT 5
+
+volatile uint32_t tds1 = 0,tds2 = 0;
+
 /*********************************************************************************************************
 ** 函数名称: pressure_Init
 ** 功能描述:压力管脚初始化
@@ -148,7 +151,17 @@ void type_Time()
 	/**************服务时间到**************/
 	if(EPROM.EPROM_S.RunTime >= EPROM.EPROM_S.ServerTime)
 	{
+		if(minutes % 5 == 1)
+		{
+			BEE_ON();
+			delay_nms(5000);
+			delay_nms(5000);
+			BEE_OFF();
+		}
 		valve_OFF(0);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		delay_nms(70);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 	}	
 }
 /*********************************************************************************************************
@@ -162,7 +175,17 @@ void type_Flow()
 	/**************服务流量到**************/
 	if(EPROM.EPROM_S.RunFlow >= EPROM.EPROM_S.ServerFlow)
 	{
+		if(minutes % 5 == 1)
+		{
+			BEE_ON();
+			delay_nms(5000);
+			delay_nms(5000);
+			BEE_OFF();
+		}
 		valve_OFF(0);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		delay_nms(70);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 	}
 }
 /*********************************************************************************************************
@@ -175,13 +198,11 @@ void msg_Build(uint8_t *sendStr)
 {
 	uint16_t len;
 	char temp[50];
-	volatile uint32_t tds1 = 0,tds2 = 0;
-	get_TDS(&tds1,&tds2);
 	if(EPROM.EPROM_S.ServerType != 0 || EPROM.EPROM_S.ServerType != 1)
 	{
 		EPROM.EPROM_S.ServerType = 0;
 	}
-	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",","12345678900000");
+	len = sprintf((char *)sendStr,"{\"SN\":\"%s\",",(char *)&EPROM.EPROM_S.IMEI[0]);
     len+=sprintf((char *)temp,"\"CMD\":\"01\",");
 	strcat((char *)sendStr,temp);
 	len+=sprintf((char *)temp,"\"TYPE\":%c,",EPROM.EPROM_S.ServerType+'0');
@@ -382,10 +403,10 @@ ErrorStatus msg_Deal(uint8_t *rcv)
 void runApplication()
 {
 	uint32_t waterflow;
-	
+//	uint8_t tds_arry[40];
 	if(EPROM.EPROM_S.ValveStatus & 0x04)
 	{
-		valve_ON(1);
+		;
 	}
 	else
 	{
@@ -393,7 +414,7 @@ void runApplication()
 	}
 	if(EPROM.EPROM_S.ValveStatus & 0x02)
 	{
-		valve_ON(2);
+		;
 	}
 	else
 	{
@@ -401,7 +422,7 @@ void runApplication()
 	}
 	if(EPROM.EPROM_S.ValveStatus & 0x01)
 	{
-		valve_ON(3);
+		;
 	}
 	else
 	{
@@ -411,45 +432,51 @@ void runApplication()
 	{
 		type_Flow();
 	}
+
 	if(EPROM.EPROM_S.ServerType == 0)
 	{
 		type_Time();
 	}
 	waterflow = get_Flow();
+	get_TDS(&tds1,&tds2);
+//	sprintf((char *)tds_arry,"tds1=%u,tds2=%u\r\n",tds1,tds2);
+//	UART0Write_Str(tds_arry);
 	EPROM.EPROM_S.RunFlow = EPROM.EPROM_S.RunFlow+waterflow;
 }
 void control_Function(void)
 {
-	static uint8_t cc= 0;
-	if(low_Pressure())
+	if(EPROM.EPROM_S.ValveStatus == 0)
 	{
 		valve_OFF(1);
 		valve_OFF(2);
 		valve_OFF(3);
-        BEE_OFF();
+		BEE_OFF();	
 	}else
 	{
-		BEE_ON();
-		if(high_Pressure())
+		if(low_Pressure())
 		{
-			BEE_OFF();
 			valve_OFF(1);
-			delay_nms(1000);
 			valve_OFF(2);
 			valve_OFF(3);
-			cc = 0;
+			BEE_OFF();
 		}else
 		{
-			valve_ON(3);
-			valve_ON(1);
-			if(cc > 3)
+			if(high_Pressure())
 			{
+				BEE_OFF();
+				valve_OFF(1);
+				valve_OFF(2);
 				valve_OFF(3);
-				valve_ON(2);
-			}
-			else
+			}else
 			{
-				cc++;
+				BEE_ON();
+				valve_ON(2);
+				valve_ON(1);
+				if(tds2 < 200)
+				{
+					valve_OFF(2);
+					valve_ON(3);
+				}
 			}
 		}
 	}

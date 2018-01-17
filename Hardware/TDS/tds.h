@@ -12,7 +12,6 @@
 #endif
 ErrorStatus get_Fre1(volatile uint32_t *ct1);
 ErrorStatus get_Fre2(volatile uint32_t *ct2);
-extern void timer_Init(void);
 extern void tds_Init(void);
 extern ErrorStatus get_TDS(volatile uint32_t *tds1,volatile uint32_t *tds2);
 

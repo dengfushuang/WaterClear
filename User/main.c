@@ -60,52 +60,62 @@ void HardWare_Init()
 {
 	pressure_Init();
 	valve_Init();
-	timer_Init();
 	tds_Init();
 	BEE_init();
 	UART0Init();
-	delay_nms(1000);
-	BEE_ON();
-	delay_nms(2000);
-	BEE_OFF();
-//    SIM800C_PWRKEY;
-//	delay_nms(100);
-//	PWRKEY_L;	
+	delay_nms(500);	
 	sim800c_init(115200);
+	my_Task_Timer_Init();
 }
 int main()
 {
-	uint8_t err_count = 0,tt[20];
+	uint8_t err_count = 0,connected_flag = 0;
 	SystemInit();
 	read_All_Flash();
 	HardWare_Init();
     while(1)
 	{
-		if(seconds > EPROM.EPROM_S.CircleTime )
+		/*************具体执行过程*****************/
+		runApplication();
+		if(minutes%29 == 0)
 		{
-			seconds = 0;
-		#if DEBUG_T
-			clear_RCV_Buffer();
-			msg_Build(RCV_DATA_BUF);
-			UART0Write_Str(RCV_DATA_BUF);
-			UART0Putch(GSM_MSG_STOP_FLAG);
-			clear_RCV_Buffer();
-			if(TCP_Recieve(RCV_DATA_BUF) == SUCCESS)
-			{
-				msg_Deal(RCV_DATA_BUF);
-			}
-			else
-			{
-				err_count ++;
-			}
-		#else
+			Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+			delay_nms(70);
+			Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		}
+		if(test_second > EPROM.EPROM_S.CircleTime )
+		{
+			test_second = 0;
 			do{
-				GSM_TCPC_INIT();
-				if(GSM_TCP_Connect() == SUCCESS)
+				connected_flag = 0;
+				if(TCP_Connected() == ERROR)
 				{
+					GSM_TCPC_INIT();
+					if(GSM_TCP_Connect() == SUCCESS)
+				    {
+						connected_flag = 1;
+					}
+					else
+					{
+						err_count++;
+					}
+					if(err_count > 10)
+					{
+						reset();
+					}
+				}
+				else
+				{
+					connected_flag = 1;
+				}
+				if(connected_flag)
+				{
+					EPROM.EPROM_S.ValveStatus = 0x07;
+					connected_flag = 0;
 					err_count = 0;
 					clear_RCV_Buffer();
 					msg_Build(RCV_DATA_BUF);
+					T16Nx_Disable(T16N1);
 					if(TCP_Recieve() == SUCCESS)
 					{
 						msg_Deal(RCV_DATA_BUF);
@@ -114,24 +124,13 @@ int main()
 					{
 						err_count ++;
 					}
+					
+					T16Nx_Enable(T16N1);
 				}
-				else
-				{
-					err_count++;
-				}
-				if(err_count > 5)
-				{
-					reset();
-				}
+				
 			}while(err_count);
-		#endif
 		}	
-		/*************具体执行过程*****************/
-		runApplication();
-		control_Function();
-		delay_nms(1000);
-		sprintf((char *)tt,"%u",EPROM.EPROM_S.RunTime);
-		UART0Write_Str(tt);
+		
 	}
 	return 0;
 }

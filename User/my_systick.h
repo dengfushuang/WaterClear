@@ -2,7 +2,7 @@
 #define __MY_SYSTICK_H
 
 #include "user_config.h"
-extern volatile uint32_t seconds,minutes;
+extern volatile uint32_t seconds,minutes,test_second;
 extern volatile uint32_t timeout;
 void BEE_ON(void);
 void BEE_OFF(void);

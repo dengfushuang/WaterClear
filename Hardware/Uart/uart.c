@@ -147,7 +147,14 @@ ErrorStatus UART0_Recieve(uint32_t tout)
 		    return ERROR;
 		}
 	}
-    while((UART0->STA.RXBUSY) || (RxCounter == 0));
+	timeout = 20000;
+    while((UART0->STA.RXBUSY) || (RxCounter == 0))
+	{
+		if(timeout == 0)
+		{
+		    reset();
+		}
+	};
 	for(i = RxCounter ; i <(RCV_BUF_LEN -1);i++ )
 	{
 		RCV_DATA_BUF[i] = 0;
@@ -262,7 +269,7 @@ void UART0_IRQHandler()
 
 ErrorStatus get_MSG(char * str,uint32_t tout)
 {
-	uint32_t timeout = 10;
+	uint32_t timeout = tout;
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
 	timeout = tout;
 	RxCounter1 = 0;
@@ -299,7 +306,7 @@ ErrorStatus get_MSG(char * str,uint32_t tout)
 ********************************************************************************************************/
 ErrorStatus get_String(uint8_t *sendstr,uint8_t resend)
 {
-	uint8_t i,j,*cp;
+	uint8_t i,j;
 	for(i = 0 ; i < (resend+1) ; i++)
 	{
 		for( j =0 ; j < (SEND_BUF_LEN-1) ;j++)

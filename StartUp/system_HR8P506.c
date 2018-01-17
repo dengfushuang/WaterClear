@@ -41,6 +41,6 @@ void SystemInit(void)
 	wdt.WDT_Rst = Enable;
 	wdt.WDT_Clock = WDT_CLOCK_PCLK;
 	WDT_Init(&wdt);
-	//WDT_Enable();
+	WDT_Enable();
 }
 

@@ -24,3 +24,4 @@
 ..\output\tds.o: ..\Hardware\GSM\sim800c.h
 ..\output\tds.o: ..\User\msgbuild.h
 ..\output\tds.o: ..\Hardware\Flow\water_flow.h
+..\output\tds.o: D:\Keil\ARM\ARMCC\Bin\..\include\math.h
