@@ -17,8 +17,9 @@ void pressure_Init(void)
 	GPIO->PADIR.Word  = 0X00000018;
 #endif
 #ifdef PCB_V1_01
-	GPIO->PADIR.Word = 0X00000180;
-	GPIO->PAINEB.Word = 0xFFFFE7FF;
+	GPIO->PADATA.Word = 0x00000180;
+	GPIO->PADIR.Word  = 0X00000180;
+	GPIO->PAINEB.Word &= 0xFFFFFE7F;
  #endif
 }
 /*********************************************************************************************************

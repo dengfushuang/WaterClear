@@ -269,7 +269,7 @@ void UART0_IRQHandler()
 
 ErrorStatus get_MSG(char * str,uint32_t tout)
 {
-	uint32_t timeout = tout;
+	timeout = tout;
 	sprintf((char *)SEND_DATA_BUF,"%s",str);
 	timeout = tout;
 	RxCounter1 = 0;

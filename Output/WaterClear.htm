@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Output\WaterClear.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\WaterClear.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Wed Jan 17 21:47:30 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Thu Jan 18 10:54:53 2018
 <BR><P>
 <H3>Maximum Stack Usage =        272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -801,8 +801,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_GetNormalBitOffsetFromPin
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_Fre1
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;high_Pressure
+<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;high_Pressure
 </UL>
 
 <P><STRONG><a name="[71]"></a>GPIO_SetDSRegFromPin</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, lib_gpio.o(i.GPIO_SetDSRegFromPin))
@@ -894,7 +893,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[7b]"></a>HardWare_Init</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.HardWare_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
 <LI>Call Chain = HardWare_Init &rArr; sim800c_init &rArr; check_ststus &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;valve_Init
@@ -1258,11 +1257,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;runApplication
 </UL>
 
-<P><STRONG><a name="[b0]"></a>get_Fre1</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, tds.o(i.get_Fre1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = get_Fre1 &rArr; GPIO_ReadBit &rArr; GPIO_GetNormalBitOffsetFromPin &rArr; __ARM_common_switch8
+<P><STRONG><a name="[b0]"></a>get_Fre1</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, tds.o(i.get_Fre1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = get_Fre1
 </UL>
-<BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadBit
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_TDSEN
+<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_TDSEN
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;T16Nx_Enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_TDS
@@ -1288,13 +1286,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sim800c_init
 </UL>
 
-<P><STRONG><a name="[8e]"></a>get_MSG</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, uart.o(i.get_MSG))
+<P><STRONG><a name="[8e]"></a>get_MSG</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, uart.o(i.get_MSG))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136 + Unknown Stack Size
 <LI>Call Chain = get_MSG &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TCP_Recieve
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sim800c_init
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TCP_Recieve
 </UL>
 
 <P><STRONG><a name="[b5]"></a>get_NByte</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, uart.o(i.get_NByte))
@@ -1496,11 +1495,12 @@ Global Symbols
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_Fre1
 </UL>
 
-<P><STRONG><a name="[80]"></a>sim800c_init</STRONG> (Thumb, 206 bytes, Stack size 8 bytes, sim800c.o(i.sim800c_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
+<P><STRONG><a name="[80]"></a>sim800c_init</STRONG> (Thumb, 258 bytes, Stack size 16 bytes, sim800c.o(i.sim800c_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
 <LI>Call Chain = sim800c_init &rArr; check_ststus &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_IMEI
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_MSG
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_ststus
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0Write_Str
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEE_ON

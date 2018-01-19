@@ -43,6 +43,7 @@ void sim800c_OFF(void)
 void sim800c_init(uint32_t BPS)
 {
 	volatile ErrorStatus err;
+	uint8_t errcnt = 0;
 	/***SIM800C电源控制脚初始化***/
 	strcat((char *)CIPSTART,(char *)serverIP);
     SIM800C_PWRKEY;
@@ -55,11 +56,21 @@ void sim800c_init(uint32_t BPS)
 		delay_nms(10);
 	}
 #endif
+	errcnt = 0;
+REPARE:
 	UART0Write_Str(GSM_BUF0);
 	delay_nms(100);
+	if(get_MSG("Ready",2000) == ERROR)
+	{
+		errcnt++;
+		if(errcnt < 5)
+		{
+	    	goto REPARE;
+		}
+	}
 	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
-	delay_nms(5000);
-	delay_nms(5000);
+//	delay_nms(5000);
+//	delay_nms(5000);
 	BEE_ON();
 	delay_nms(1000);
 	BEE_OFF();
@@ -67,21 +78,26 @@ void sim800c_init(uint32_t BPS)
 	UART0Write_Str(GSM_BUF0);
 	delay_nms(1000);
 	delay_nms(100);
+	errcnt = 0;
 	if(check_ststus(GSM_BUF1,"OK",10,5000) == ERROR)
 	{
 		reset();
 	}
-	if(check_ststus((uint8_t *)"AT+CMGDA=6\r\n","OK",10,5000) == ERROR)
+	if(check_ststus((uint8_t *)"AT+CMGDA=6\r\n","OK",5,5000) == ERROR)
 	{
-		;
+		errcnt++;
 	}
-	if(check_ststus(GSM_BUF5,"OK",10,5000) == ERROR)
+	if(check_ststus(GSM_BUF5,"OK",5,5000) == ERROR)
 	{
-        ;
+        errcnt++;
 	}
-	if(check_ststus((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n","OK",2,5000) == ERROR)
+	if(check_ststus((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n","OK",5,5000) == ERROR)
 	{
-        ;
+        errcnt++;
+	}
+	if(errcnt != 0)
+	{
+		reset();
 	}
 	delay_nms(5000); 
 	delay_nms(3000);

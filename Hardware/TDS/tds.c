@@ -41,8 +41,8 @@ void tds_Init(void)
    #endif
    #ifdef PCB_V1_01
 	GPIO->PADIR.Word = 0X00000030;
-	GPIO->PADIRBCR.Word = 0X0000000C;
-	GPIO->PAINEB.Word = 0xFFFFFFCF;
+	GPIO->PADIRBCR.Word |= 0X0000000C;
+	GPIO->PAINEB.Word &= 0xFFFFFFCF;
    #endif
 	tds_Timer_Init();
 }
@@ -58,8 +58,8 @@ void set_TDSEN(uint8_t t)
 	switch(t)
 	{
 	
-		case 1: GPIO->PADATABCR.Word  = 0x000000010;GPIO->PADATABSR.Word  = 0x000000020;break;
-		case 2: GPIO->PADATABCR.Word  = 0x000000020;GPIO->PADATABSR.Word  = 0x000000010;break;
+		case 1: GPIO->PADATABCR.Word  = 0x000000004;GPIO->PADATABSR.Word  = 0x000000008;break;
+		case 2: GPIO->PADATABCR.Word  = 0x000000008;GPIO->PADATABSR.Word  = 0x000000004;break;
 		default:break;
 	}
 	#endif
@@ -81,10 +81,10 @@ ErrorStatus get_Fre1(volatile uint32_t *ct1)
 	while(tflag)
 	{
     #ifdef PCB_V1_00
-		t1 = GPIO_ReadBit(GPIO_Pin_A6);
+		t1 = (GPIO->PAPORT.Word>>6)&0x01;
 	#endif
 	#ifdef PCB_V1_01
-		t1 = GPIO_ReadBit(GPIO_Pin_A4);
+		t1 = (GPIO->PAPORT.Word>>4)&0x01;
 	#endif
 	    if(t1 != t2)
 		{
@@ -109,7 +109,7 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 		t1 = (GPIO->PAPORT.Word>>8)&0x01;
 	#endif
 	#ifdef PCB_V1_01
-		t1 = GPIO_ReadBit(GPIO_Pin_A5);
+		t1 = (GPIO->PAPORT.Word>>5)&0x01;
 	#endif
 	    if(t1 != t2)
 		{
