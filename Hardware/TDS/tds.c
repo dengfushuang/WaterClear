@@ -40,8 +40,9 @@ void tds_Init(void)
 	GPIO->PAINEB.Word &= 0xFFFFFEBF;
    #endif
    #ifdef PCB_V1_01
-	GPIO->PADIR.Word = 0X00000030;
 	GPIO->PADIRBCR.Word |= 0X0000000C;
+	delay_nms(50);
+	GPIO->PADIR.Word = 0X00000030;
 	GPIO->PAINEB.Word &= 0xFFFFFFCF;
    #endif
 	tds_Timer_Init();
@@ -58,8 +59,8 @@ void set_TDSEN(uint8_t t)
 	switch(t)
 	{
 	
-		case 1: GPIO->PADATABCR.Word  = 0x000000004;GPIO->PADATABSR.Word  = 0x000000008;break;
-		case 2: GPIO->PADATABCR.Word  = 0x000000008;GPIO->PADATABSR.Word  = 0x000000004;break;
+		case 1: GPIO->PADATABCR.Word  = 0x000000004;delay_nms(50);GPIO->PADATABSR.Word  = 0x000000008;break;
+		case 2: GPIO->PADATABCR.Word  = 0x000000008;delay_nms(50);GPIO->PADATABSR.Word  = 0x000000004;break;
 		default:break;
 	}
 	#endif

@@ -2,7 +2,7 @@
 #define __USER_CONFIG_H
 
 
-#define PCB_V1_00
+#define PCB_V1_01
 
 /*******************************************************************
                        系统头文件
@@ -55,6 +55,7 @@ typedef struct{
 	uint32_t  CircleTime;
 	uint32_t  ContinuTime;
     uint8_t IMEI[16];
+	uint8_t ServerIP[32];
 }EPROM_DATA;
 
 typedef union{

@@ -1,5 +1,5 @@
 #include "user_config.h"
-
+uint8_t  serverIP[] = "\"106.14.207.87\",\"11222\"\r\n";
 EEPROM_DATA EPROM;
 void BEE_init()
 {
@@ -72,6 +72,23 @@ int main()
 	uint8_t err_count = 0,connected_flag = 0;
 	SystemInit();
 	read_All_Flash();
+	if(EPROM.EPROM_S.CircleTime > 120)
+	{
+		EPROM.EPROM_S.CircleTime = 60;
+	}
+    for(err_count = 0 ;err_count < 5 ;err_count ++)
+	{
+		if(EPROM.EPROM_S.ServerIP[err_count] <32 || EPROM.EPROM_S.ServerIP[err_count] > 127)
+		{
+			connected_flag ++;
+		}
+	}
+	if(connected_flag != 0 )
+	{
+		sprintf((char *)&EPROM.EPROM_S.ServerIP[0],"%s",(char *)serverIP);
+	}
+	err_count = 0;
+	connected_flag = 0;
 	HardWare_Init();
     while(1)
 	{
@@ -85,6 +102,7 @@ int main()
 		}
 		if(test_second > EPROM.EPROM_S.CircleTime )
 		{
+			GSM_SMS_RCV();
 			test_second = 0;
 			do{
 				connected_flag = 0;
@@ -110,7 +128,7 @@ int main()
 				}
 				if(connected_flag)
 				{
-					EPROM.EPROM_S.ValveStatus = 0x07;
+					EPROM.EPROM_S.ValveStatus = 0x07; //≤‚ ‘”Ôæ‰£¨œ¬‘ÿ ±◊¢ ÕµÙ
 					connected_flag = 0;
 					err_count = 0;
 					clear_RCV_Buffer();
@@ -130,7 +148,6 @@ int main()
 				
 			}while(err_count);
 		}	
-		
 	}
 	return 0;
 }

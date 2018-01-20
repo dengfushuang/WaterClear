@@ -18,8 +18,8 @@ void pressure_Init(void)
 #endif
 #ifdef PCB_V1_01
 	GPIO->PADATA.Word = 0x00000180;
-	GPIO->PADIR.Word  = 0X00000180;
 	GPIO->PAINEB.Word &= 0xFFFFFE7F;
+	GPIO->PADIR.Word  = 0X00000180;
  #endif
 }
 /*********************************************************************************************************
@@ -31,7 +31,7 @@ void pressure_Init(void)
 uint8_t high_Pressure(void)
 {
 	#ifdef PCB_V1_00
-	   if(GPIO_ReadBit(GPIO_Pin_A3))
+	   if(GPIO->PAPORT.PORT_3)
 	   {
 		   return 1;
 	   }
@@ -451,7 +451,7 @@ void control_Function(void)
 		valve_OFF(1);
 		valve_OFF(2);
 		valve_OFF(3);
-		BEE_OFF();	
+//		BEE_OFF();	
 	}else
 	{
 		if(low_Pressure())
@@ -459,18 +459,18 @@ void control_Function(void)
 			valve_OFF(1);
 			valve_OFF(2);
 			valve_OFF(3);
-			BEE_OFF();
+//			BEE_OFF();
 		}else
 		{
 			if(high_Pressure())
 			{
-				BEE_OFF();
+//				BEE_OFF();
 				valve_OFF(1);
 				valve_OFF(2);
 				valve_OFF(3);
 			}else
 			{
-				BEE_ON();
+//				BEE_ON();
 				valve_ON(2);
 				valve_ON(1);
 				if(tds2 < 200)

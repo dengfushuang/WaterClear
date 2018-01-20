@@ -148,11 +148,12 @@ ErrorStatus UART0_Recieve(uint32_t tout)
 		}
 	}
 	timeout = 20000;
-    while((UART0->STA.RXBUSY) || (RxCounter == 0))
+    while((RxCounter == 0) || (UART0->STA.RXBUSY == 1))
 	{
 		if(timeout == 0)
 		{
-		    reset();
+			//reset();
+			return ERROR;
 		}
 	};
 	for(i = RxCounter ; i <(RCV_BUF_LEN -1);i++ )
@@ -228,7 +229,11 @@ void UART0_IRQHandler()
 			if(data_temp == SEND_DATA_BUF[RxCounter1])
 			{
 				RxCounter1++;
-				if(SEND_DATA_BUF[RxCounter1] == '\r' || SEND_DATA_BUF[RxCounter1] == '\n' || SEND_DATA_BUF[RxCounter1] == '\0')
+				if(RxCounter1 >=(SEND_BUF_LEN -1) )
+				{
+					err_rcv_head_flag = 0;
+				}
+				else if((SEND_DATA_BUF[RxCounter1] == '\r') || (SEND_DATA_BUF[RxCounter1] == '\n') || (SEND_DATA_BUF[RxCounter1] == '\0'))
 				{
 					rcv_head_flag = 0;
 				}
@@ -259,6 +264,9 @@ void UART0_IRQHandler()
 		}
 	}
 }
+
+
+
 
 /*********************************************************************************************************
 ** º¯ÊýÃû³Æ: get_MSG
@@ -353,6 +361,7 @@ ErrorStatus get_NByte(uint8_t *sendstr,uint16_t NByte)
 ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend,uint32_t tout)
 {
 	uint8_t i,j;
+	ErrorStatus err;
 	for(i = 0 ; i < (resend+1) ; i++)
 	{
 		for( j =0 ; j < (SEND_BUF_LEN-1) ;j++)
@@ -360,8 +369,9 @@ ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend,uint32_
 		    SEND_DATA_BUF[j] = 0;
 	    }
 	    sprintf((char *)SEND_DATA_BUF,"%s",(char *)sendstr);
-		UART0Write_Str(sendstr);
-		if(UART0_Recieve(tout) == SUCCESS)
+		UART0Write_Str(SEND_DATA_BUF);
+		err = UART0_Recieve(tout);
+		if( err == SUCCESS)
 		{
 			delay_nms(200);
 			if((strstr((const char *)RCV_DATA_BUF,str) != NULL))
@@ -376,6 +386,7 @@ ErrorStatus check_ststus(uint8_t *sendstr,const char *str,uint8_t resend,uint32_
 			    }
 			}
 		}
+		clear_RCV_Buffer();
 	}
 	return ERROR;
 }

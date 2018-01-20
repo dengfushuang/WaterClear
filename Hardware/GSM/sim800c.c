@@ -1,5 +1,4 @@
 #include "sim800c.h"
-uint8_t err_count = 0;
 
 
 /***GSM SMS***/
@@ -13,7 +12,6 @@ uint8_t  GSM_BUF6[] = "AT+CSTT=\"CMNET\"\r\n";
 uint8_t  GSM_BUF7[] = "AT+CIICR\r\n";
 uint8_t  GSM_BUF8[] = "AT+CIFSR\r\n";
 uint8_t  CIPSTART[46] = "AT+CIPSTART=\"TCP\",";
-uint8_t  serverIP[] = "\"106.14.207.87\",\"11222\"\r\n";
 uint8_t  GSM_CIPSRIP[] = "AT+CIPSRIP=1\r\n";
 uint8_t  GSM_CIPSEND[] = "AT+CIPSEND\r\n";
 uint8_t  GSM_CIPCLOSE[] = "AT+CIPCLOSE\r\n";
@@ -45,7 +43,7 @@ void sim800c_init(uint32_t BPS)
 	volatile ErrorStatus err;
 	uint8_t errcnt = 0;
 	/***SIM800C电源控制脚初始化***/
-	strcat((char *)CIPSTART,(char *)serverIP);
+	strcat((char *)CIPSTART,(char *)EPROM.EPROM_S.ServerIP);
     SIM800C_PWRKEY;
 	delay_nms(200);
 	PWRKEY_H;
@@ -69,8 +67,6 @@ REPARE:
 		}
 	}
 	delay_nms(5000);  //确保GSM模块搜索到网络后再进入系统
-//	delay_nms(5000);
-//	delay_nms(5000);
 	BEE_ON();
 	delay_nms(1000);
 	BEE_OFF();
@@ -105,6 +101,51 @@ REPARE:
 	delay_nms(2000);
 	get_IMEI();
 	delay_nms(1000);
+}
+
+
+
+ErrorStatus GSM_SMS_RCV(void)
+{
+	uint8_t *cp;
+	uint8_t  data[35] = {0};
+	uint8_t *cp_s,*cp_e;
+	/***读取未读短信***/
+		delay_nms(10);
+		UART0Write_Str(GSM_BUF5);
+		delay_nms(10);
+		UART0Write_Str(GSM_BUF4);
+		delay_nms(10);
+//		UART0Write_Str(GSM_BUF3);
+		/***截取短信中指令内容***/
+	    if(check_ststus(GSM_BUF3,"+CMGL:",0,5000) == ERROR)
+		{
+			return ERROR;
+		}
+        UART0_RxDisable();
+	    UART0_TxDisable();	
+		if((cp = (uint8_t *)strstr((char *)RCV_DATA_BUF, "+86")) == NULL)
+		{
+			return ERROR;
+		}
+		cp_s = (uint8_t *)strstr((char *)RCV_DATA_BUF,"<");
+		cp_e = (uint8_t *)strstr((char *)RCV_DATA_BUF,">");
+		if(cp_s == NULL || cp_e==NULL)
+		{
+			UART0Write_Str((uint8_t *)"AT+CMGDA=\"DEL ALL\"\r\n");
+			delay_nms(100);
+			return ERROR;
+		}
+		strncpy((char *)data,(char *)(cp_s+1),(strlen((char *)(cp_s+1))-strlen((char *)(cp_e-1))+1));
+		sprintf((char *)&EPROM.EPROM_S.ServerIP[0],"%s\r\n",data);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		delay_nms(70);
+		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		delay_nms(100);
+	    UART0_RxEnable();
+	    UART0_TxEnable();
+		reset();
+		return SUCCESS;
 }
 
 
@@ -178,6 +219,7 @@ ErrorStatus TCP_Connected(void)
 ErrorStatus GSM_TCP_Connect(void)
 {
 	volatile ErrorStatus temp = ERROR;
+	static uint8_t err_count = 0;
 	if(check_ststus(GSM_BUF6,"OK",0,5000) == ERROR)
 	{
 		err_count ++;

@@ -10,6 +10,7 @@
   #define TDS1 (GPIO->PAPORT.PORT_4)
   #define TDS2 (GPIO->PAPORT.PORT_5)
 #endif
+void set_TDSEN(uint8_t t);
 ErrorStatus get_Fre1(volatile uint32_t *ct1);
 ErrorStatus get_Fre2(volatile uint32_t *ct2);
 extern void tds_Init(void);
