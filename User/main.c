@@ -1,5 +1,5 @@
 #include "user_config.h"
-uint8_t  serverIP[] = "\"106.14.207.87\",\"11222\"\r\n";
+uint8_t  serverIP[] = "\"140.143.187.125\",\"11222\"\r\n";
 EEPROM_DATA EPROM;
 void BEE_init()
 {
@@ -92,7 +92,7 @@ int main()
 	HardWare_Init();
     while(1)
 	{
-		/*************¾ßÌåÖ´ÐÐ¹ý³Ì*****************/
+		
 		runApplication();
 		if(minutes%29 == 0)
 		{
@@ -102,23 +102,25 @@ int main()
 		}
 		if(test_second > EPROM.EPROM_S.CircleTime )
 		{
-			GSM_SMS_RCV();
+			
 			test_second = 0;
 			do{
+				GSM_SMS_RCV();
 				connected_flag = 0;
 				if(TCP_Connected() == ERROR)
 				{
 					GSM_TCPC_INIT();
 					if(GSM_TCP_Connect() == SUCCESS)
-				    {
+				    { 
 						connected_flag = 1;
 					}
 					else
 					{
 						err_count++;
 					}
-					if(err_count > 10)
+					if(err_count > 5)
 					{
+						GSM_SMS_RCV();
 						reset();
 					}
 				}
@@ -128,7 +130,7 @@ int main()
 				}
 				if(connected_flag)
 				{
-					EPROM.EPROM_S.ValveStatus = 0x07; //²âÊÔÓï¾ä£¬ÏÂÔØÊ±×¢ÊÍµô
+//					EPROM.EPROM_S.ValveStatus = 0x07; //²âÊÔÓï¾ä£¬ÏÂÔØÊ±×¢ÊÍµô
 					connected_flag = 0;
 					err_count = 0;
 					clear_RCV_Buffer();
@@ -151,3 +153,62 @@ int main()
 	}
 	return 0;
 }
+
+
+
+/*int main()
+{
+	uint8_t err_count = 0,connected_flag = 0,tt[80];
+	SystemInit();
+	read_All_Flash();
+	if(EPROM.EPROM_S.CircleTime > 120)
+	{
+		EPROM.EPROM_S.CircleTime = 60;
+	}
+    for(err_count = 0 ;err_count < 5 ;err_count ++)
+	{
+		if(EPROM.EPROM_S.ServerIP[err_count] <32 || EPROM.EPROM_S.ServerIP[err_count] > 127)
+		{
+			connected_flag ++;
+		}
+	}
+	if(connected_flag != 0 )
+	{
+		sprintf((char *)&EPROM.EPROM_S.ServerIP[0],"%s",(char *)serverIP);
+	}
+	err_count = 0;
+	connected_flag = 0;
+	HardWare_Init();
+    while(1)
+	{
+		
+		runApplication();
+		if(minutes%29 == 0)
+		{
+			Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+			delay_nms(70);
+			Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
+		}
+		if(test_second > 6 )
+		{
+			BEE_ON();
+			delay_nms(1000);
+			BEE_OFF();
+			 sprintf((char *)SEND_DATA_BUF,"%s","RECV FROM:");
+			
+			clear_RCV_Buffer();
+			rcv_enf_flag = 1;
+			UART0_Recieve(8000);
+			UART0Write_Str(RCV_DATA_BUF);
+			delay_nms(100);
+			msg_Deal(RCV_DATA_BUF);
+			sprintf((char *)tt,"\r\nRUN=%u,SV=%u,VS=%c%c%c",EPROM.EPROM_S.RunTime,EPROM.EPROM_S.ServerTime,((EPROM.EPROM_S.ValveStatus & 0x00000004)+'0'),((EPROM.EPROM_S.ValveStatus & 0x00000002)+'0'),((EPROM.EPROM_S.ValveStatus & 0x00000001)+'0'));
+            UART0Write_Str(tt);		
+		}	
+	}
+	return 0;
+}*/
+
+
+
+

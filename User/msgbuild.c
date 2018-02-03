@@ -160,6 +160,7 @@ void type_Time()
 			BEE_OFF();
 		}
 		valve_OFF(0);
+		EPROM.EPROM_S.ValveStatus = 0;
 		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 		delay_nms(70);
 		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
@@ -176,6 +177,7 @@ void type_Flow()
 	/**************服务流量到**************/
 	if(EPROM.EPROM_S.RunFlow >= EPROM.EPROM_S.ServerFlow)
 	{
+		
 		if(minutes % 5 == 1)
 		{
 			BEE_ON();
@@ -184,6 +186,7 @@ void type_Flow()
 			BEE_OFF();
 		}
 		valve_OFF(0);
+		EPROM.EPROM_S.ValveStatus = 0;
 		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
 		delay_nms(70);
 		Save_To_EPROM((uint32_t *)&EEPROM_BASE_ADDR,(sizeof(EPROM_DATA)/sizeof(uint32_t)));
@@ -446,11 +449,14 @@ void runApplication()
 }
 void control_Function(void)
 {
+	static uint32_t start_open_time = 0;
+	static uint8_t fflag = 1;
 	if(EPROM.EPROM_S.ValveStatus == 0)
 	{
 		valve_OFF(1);
 		valve_OFF(2);
 		valve_OFF(3);
+		fflag = 1;
 //		BEE_OFF();	
 	}else
 	{
@@ -459,18 +465,26 @@ void control_Function(void)
 			valve_OFF(1);
 			valve_OFF(2);
 			valve_OFF(3);
+			fflag = 1;
 //			BEE_OFF();
 		}else
 		{
 			if(high_Pressure())
 			{
 //				BEE_OFF();
+				fflag = 1;
 				valve_OFF(1);
 				valve_OFF(2);
 				valve_OFF(3);
 			}else
 			{
+				
 //				BEE_ON();
+				if(fflag)
+				{
+					start_open_time = EPROM.EPROM_S.RunTime;
+					fflag = 0;
+				}
 				valve_ON(2);
 				valve_ON(1);
 				if(tds2 < 200)
@@ -480,5 +494,9 @@ void control_Function(void)
 				}
 			}
 		}
+	}
+	if((EPROM.EPROM_S.RunTime -start_open_time) > EPROM.EPROM_S.ContinuTime)
+	{
+		valve_OFF(0);
 	}
 }

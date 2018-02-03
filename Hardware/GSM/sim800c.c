@@ -1,6 +1,5 @@
 #include "sim800c.h"
 
-
 /***GSM SMS***/
 uint8_t  GSM_BUF0[] = "AT\r\n";
 uint8_t  GSM_BUF1[] = "AT+CMGF=0\r\n";
@@ -224,7 +223,7 @@ ErrorStatus GSM_TCP_Connect(void)
 	{
 		err_count ++;
 	}
-	if((temp = check_ststus(GSM_BUF7,"OK",0,5000)) == ERROR)
+	if((temp = check_ststus(GSM_BUF7,"OK",0,8000)) == ERROR)
 	{
 	    err_count ++;
 	}

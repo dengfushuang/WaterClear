@@ -65,6 +65,13 @@ void set_TDSEN(uint8_t t)
 	}
 	#endif
 }
+void set_TDSOFF(void)
+{
+	#ifdef PCB_V1_01
+	GPIO->PADATABCR.Word  = 0x00000000C;
+	delay_nms(50);
+	#endif
+}
 /*********************************************************************************************************
 ** 函数名称: get_Fre1、get_Fre2
 ** 功能描述: 读取频率
@@ -77,6 +84,7 @@ ErrorStatus get_Fre1(volatile uint32_t *ct1)
 	volatile uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
+	set_TDSOFF();
 	set_TDSEN(1);
 	T16Nx_Enable(T16N2);
 	while(tflag)
@@ -94,6 +102,7 @@ ErrorStatus get_Fre1(volatile uint32_t *ct1)
 		}
 	}
 	*ct1 = tdscount;
+	set_TDSOFF();
     return SUCCESS;	
 }
 ErrorStatus get_Fre2(volatile uint32_t *ct2)
@@ -102,6 +111,7 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 	uint32_t tdscount = 0;
 	tflag = 1;
 	tcount = 0;
+	set_TDSOFF();
 	set_TDSEN(2);
 	T16Nx_Enable(T16N2);
 	while(tflag)
@@ -119,6 +129,7 @@ ErrorStatus get_Fre2(volatile uint32_t *ct2)
 		}
 	}
 	*ct2 = tdscount;
+	set_TDSOFF();
 	return SUCCESS;	
 }
 /*********************************************************************************************************

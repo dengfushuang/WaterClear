@@ -285,6 +285,7 @@ ErrorStatus get_MSG(char * str,uint32_t tout)
 	start_rcv_flag = 1;
 	rcv_head_flag = 1;
 	err_rcv_head_flag = 1;
+	rcv_enf_flag = 1;
 	do
 	{
 		/********≥¨ ±¥¶¿Ì*********/
